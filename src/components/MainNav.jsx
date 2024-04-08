@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 import {
   HiEnvelope,
   HiMiniBanknotes,
@@ -53,37 +55,39 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 function MainNav() {
+  const { t } = useTranslation();
+
   return (
     <nav>
       <NavList>
         <li>
           <StyledNavLink to={"/guests"}>
             <HiUserGroup />
-            <p>Guests</p>
+            <p>{t("sideBarGuestTab")}</p>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to={"/invitation-card"}>
             <MdCardGiftcard />
-            <p>Card</p>
+            <p>{t("sideBarCardTab")}</p>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to={"/invitation-money"}>
             <HiEnvelope />
-            <p>Money</p>
+            <p>{t("sideBarMoneyTab")}</p>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to={"/payment"}>
             <HiMiniBanknotes />
-            <p>Payment</p>
+            <p>{t("sideBarPaymentTab")}</p>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to={"/services"}>
             <HiMiniHomeModern />
-            <p>Services</p>
+            <p>{t("sideBarServiceTab")}</p>
           </StyledNavLink>
         </li>
       </NavList>

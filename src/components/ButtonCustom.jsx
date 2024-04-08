@@ -10,7 +10,7 @@ const sizes = {
   `,
   medium: css`
     font-size: 1.4rem;
-    padding: 0.7rem 1.6rem;
+    padding: 1.2rem 2rem;
     font-weight: 500;
   `,
   large: css`
@@ -62,4 +62,13 @@ Button.defaultProps = {
   size: "medium",
 };
 
-export default Button;
+function ButtonCustom({ title, icon }) {
+  return (
+    <Button>
+      <div>{title}</div>
+      <div>{icon}</div>
+    </Button>
+  );
+}
+
+export default ButtonCustom;

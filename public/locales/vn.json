@@ -1,0 +1,20 @@
+{
+  "sideBarGuestTab": "Khách mời",
+  "sideBarCardTab": "Thiệp mời",
+  "sideBarMoneyTab": "Tiền mừng",
+  "sideBarPaymentTab": "Chi tiêu",
+  "sideBarServiceTab": "Dịch vụ",
+  "guestScreenHeader": "KHÁCH MỜI: ",
+  "guestFriend": "bạn bè",
+  "guestFamily": "gia đình",
+  "guestCollege": "đồng nghiệp",
+  "guestRelatives": "họ hàng",
+  "guestUploadBtn": "TẢI LÊN",
+  "guestAddMoreBtn": "MỜI THÊM",
+  "guestFilterAll": "Tất cả",
+  "guestFilterFriend": "Bạn bè",
+  "guestFilterFamily": "Gia đình",
+  "guestFilterColleague": "Đồng nghiệp",
+  "guestFilterRelatives": "Họ hàng",
+  "guestSearchPlaceholder": "Tìm kiếm..."
+}

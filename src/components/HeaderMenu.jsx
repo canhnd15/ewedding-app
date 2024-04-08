@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineUser } from "react-icons/hi2";
-import { MdOutlineLanguage } from "react-icons/md";
 
 import ButtonIcon from "./ButtonIcon";
 import Logout from "../features/authentication/Logout";
+import LanguageSelector from "./LanguageSelector";
 
 const StyledHeaderMenu = styled.ul`
   display: flex;
@@ -22,9 +22,7 @@ function HeaderMenu() {
         </ButtonIcon>
       </li>
       <li>
-        <ButtonIcon>
-          <MdOutlineLanguage />
-        </ButtonIcon>
+        <LanguageSelector />
       </li>
       <li>
         <Logout />

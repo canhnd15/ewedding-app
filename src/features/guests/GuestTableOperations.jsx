@@ -1,31 +1,25 @@
 import TableOperations from "../../components/TableOperations";
 import Filter from "../../components/Filter";
-import SortBy from "../../components/SortBy";
+import Input from "../../components/Input";
+import { useTranslation } from "react-i18next";
 
 function GuestTableOperations() {
+  const { t } = useTranslation();
+
   return (
     <TableOperations>
       <Filter
-        filterField="status"
+        filterField="type"
         options={[
-          { value: "all", label: "All" },
-          { value: "checked-out", label: "Checked out" },
-          { value: "checked-in", label: "Checked in" },
-          { value: "unconfirmed", label: "Unconfirmed" },
+          { value: "all", label: <p>{t("guestFilterAll")}</p> },
+          { value: "friends", label: <p>{t("guestFilterFriend")}</p> },
+          { value: "family", label: <p>{t("guestFilterFamily")}</p> },
+          { value: "colleagues", label: <p>{t("guestFilterColleague")}</p> },
+          { value: "relatives", label: <p>{t("guestFilterRelatives")}</p> },
         ]}
       />
 
-      <SortBy
-        options={[
-          { value: "startDate-desc", label: "Sort by date (recent first)" },
-          { value: "startDate-asc", label: "Sort by date (earlier first)" },
-          {
-            value: "totalPrice-desc",
-            label: "Sort by amount (high first)",
-          },
-          { value: "totalPrice-asc", label: "Sort by amount (low first)" },
-        ]}
-      />
+      <Input placeholder={"Tìm kiếm..."} />
     </TableOperations>
   );
 }

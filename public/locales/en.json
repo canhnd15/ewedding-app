@@ -1,0 +1,20 @@
+{
+  "sideBarGuestTab": "Guests",
+  "sideBarCardTab": "Card",
+  "sideBarMoneyTab": "Money",
+  "sideBarPaymentTab": "Payment",
+  "sideBarServiceTab": "Service",
+  "guestScreenHeader": "GUESTS: ",
+  "guestFriend": "Friends",
+  "guestFamily": "Family",
+  "guestCollege": "Colleagues",
+  "guestRelatives": "Relatives",
+  "guestUploadBtn": "UPLOAD",
+  "guestAddMoreBtn": "INVITE MORE",
+  "guestFilterAll": "All",
+  "guestFilterFriend": "Friends",
+  "guestFilterFamily": "Family",
+  "guestFilterColleague": "Colleagues",
+  "guestFilterRelatives": "Relatives",
+  "guestSearchPlaceholder": "Search..."
+}

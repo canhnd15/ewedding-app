@@ -29,7 +29,7 @@ const guests = [
     note: "Noooo",
   },
   {
-    stt: 1,
+    stt: 4,
     name: "Nguyen Van A",
     nickname: "A cay",
     phone: "0357664013",
@@ -37,7 +37,7 @@ const guests = [
     note: "Noooo",
   },
   {
-    stt: 2,
+    stt: 5,
     name: "Nguyen Van B",
     nickname: "B cay",
     phone: "0357664013",
@@ -45,7 +45,7 @@ const guests = [
     note: "Noooo",
   },
   {
-    stt: 3,
+    stt: 6,
     name: "Nguyen Van C",
     nickname: "C cay",
     phone: "0357664013",
@@ -53,7 +53,7 @@ const guests = [
     note: "Noooo",
   },
   {
-    stt: 1,
+    stt: 7,
     name: "Nguyen Van A",
     nickname: "A cay",
     phone: "0357664013",
@@ -61,7 +61,7 @@ const guests = [
     note: "Noooo",
   },
   {
-    stt: 2,
+    stt: 8,
     name: "Nguyen Van B",
     nickname: "B cay",
     phone: "0357664013",
@@ -69,7 +69,7 @@ const guests = [
     note: "Noooo",
   },
   {
-    stt: 3,
+    stt: 9,
     name: "Nguyen Van C",
     nickname: "C cay",
     phone: "0357664013",
@@ -77,7 +77,7 @@ const guests = [
     note: "Noooo",
   },
   {
-    stt: 1,
+    stt: 10,
     name: "Nguyen Van A",
     nickname: "A cay",
     phone: "0357664013",
@@ -85,7 +85,7 @@ const guests = [
     note: "Noooo",
   },
   {
-    stt: 2,
+    stt: 11,
     name: "Nguyen Van B",
     nickname: "B cay",
     phone: "0357664013",
@@ -93,7 +93,7 @@ const guests = [
     note: "Noooo",
   },
   {
-    stt: 3,
+    stt: 12,
     name: "Nguyen Van C",
     nickname: "C cay",
     phone: "0357664013",
@@ -105,7 +105,7 @@ const guests = [
 function GuestTable() {
   return (
     <Menus>
-      <Table columns="0.6fr 1fr 1fr 1fr 1fr 3.2rem">
+      <Table columns="0.1fr 0.5fr 0.5fr 0.3fr 0.8fr 1rem 1rem">
         <Table.Header>
           <div>STT</div>
           <div>Tên</div>
@@ -113,6 +113,7 @@ function GuestTable() {
           <div>SĐT</div>
           <div>Địa chỉ</div>
           <div>Ghi chú</div>
+          <div></div>
         </Table.Header>
 
         <Table.Body
