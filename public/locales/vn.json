@@ -16,5 +16,20 @@
   "guestFilterFamily": "Gia đình",
   "guestFilterColleague": "Đồng nghiệp",
   "guestFilterRelatives": "Họ hàng",
-  "guestSearchPlaceholder": "Tìm kiếm..."
+  "guestSearchPlaceholder": "Tìm kiếm...",
+  "guestInviteMoreFormName": "Tên",
+  "guestInviteMoreFormMyGaveMoney": "Mình đã mừng",
+  "guestInviteMoreFormNotes": "Ghi chú",
+  "guestInviteMoreFormPhone": "Số điện thoại",
+  "guestInviteMoreFormTags": "Thẻ",
+  "requireField": "Trường này là bắt buộc",
+  "guestInviteMoreFormCancelBtn": "Huỷ",
+  "guestInviteMoreFormSaveBtn": "Lưu",
+  "guestInviteMoreFormClearBtn": "Xoá",
+  "guestInviteMoreFormInviteBtn": "Mời",
+  "guestTableHeaderNo": "STT",
+  "guestTableHeaderName": "Tên",
+  "guestTableHeaderGaveMoney": "Mình đã mừng",
+  "guestTableHeaderPhone": "Số điện thoại",
+  "guestTableHeaderNotes": "Ghi chú"
 }

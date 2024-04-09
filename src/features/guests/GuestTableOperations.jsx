@@ -9,17 +9,17 @@ function GuestTableOperations() {
   return (
     <TableOperations>
       <Filter
-        filterField="type"
+        filterField="tags"
         options={[
-          { value: "all", label: <p>{t("guestFilterAll")}</p> },
-          { value: "friends", label: <p>{t("guestFilterFriend")}</p> },
-          { value: "family", label: <p>{t("guestFilterFamily")}</p> },
-          { value: "colleagues", label: <p>{t("guestFilterColleague")}</p> },
-          { value: "relatives", label: <p>{t("guestFilterRelatives")}</p> },
+          { value: "all", label: `${t("guestFilterAll")}` },
+          { value: "friends", label: `${t("guestFilterFriend")}` },
+          { value: "family", label: `${t("guestFilterFamily")}` },
+          { value: "colleagues", label: `${t("guestFilterColleague")}` },
+          { value: "relatives", label: `${t("guestFilterRelatives")}` },
         ]}
       />
 
-      <Input placeholder={"Tìm kiếm..."} />
+      <Input placeholder={`${t("guestSearchPlaceholder")}`} />
     </TableOperations>
   );
 }

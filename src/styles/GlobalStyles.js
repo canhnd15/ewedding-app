@@ -28,6 +28,7 @@ const GlobalStyles = createGlobalStyle`
   --color-indigo-700: #4338ca;
 
   --color-red-100: #fee2e2;
+  --color-red-300: #e57777;
   --color-red-700: #b91c1c;
   --color-red-800: #991b1b;
 

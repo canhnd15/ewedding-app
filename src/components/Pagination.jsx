@@ -69,6 +69,7 @@ function Pagination({ count }) {
 
   function nextPage() {
     const next = currentPage === pageCount ? currentPage : currentPage + 1;
+    console.log("next " + next);
 
     searchParams.set("page", next);
     setSearchParams(searchParams);
@@ -76,6 +77,7 @@ function Pagination({ count }) {
 
   function prevPage() {
     const prev = currentPage === 1 ? currentPage : currentPage - 1;
+    console.log("prev " + prev);
 
     searchParams.set("page", prev);
     setSearchParams(searchParams);
@@ -86,10 +88,10 @@ function Pagination({ count }) {
   return (
     <StyledPagination>
       <P>
-        Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
+        Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to
         <span>
           {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
-        </span>{" "}
+        </span>
         of <span>{count}</span> results
       </P>
 

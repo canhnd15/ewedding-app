@@ -16,5 +16,20 @@
   "guestFilterFamily": "Family",
   "guestFilterColleague": "Colleagues",
   "guestFilterRelatives": "Relatives",
-  "guestSearchPlaceholder": "Search..."
+  "guestSearchPlaceholder": "Search...",
+  "guestInviteMoreFormName": "Name",
+  "guestInviteMoreFormMyGaveMoney": "My gave money",
+  "guestInviteMoreFormNotes": "Notes",
+  "guestInviteMoreFormPhone": "Phone",
+  "guestInviteMoreFormTags": "Tags",
+  "requireField": "This field is required",
+  "guestInviteMoreFormCancelBtn": "Cancel",
+  "guestInviteMoreFormSaveBtn": "Save",
+  "guestInviteMoreFormClearBtn": "Clear",
+  "guestInviteMoreFormInviteBtn": "Invite",
+  "guestTableHeaderNo": "No.",
+  "guestTableHeaderName": "Name",
+  "guestTableHeaderGaveMoney": "My gave money",
+  "guestTableHeaderPhone": "Phone",
+  "guestTableHeaderNotes": "Notes"
 }
