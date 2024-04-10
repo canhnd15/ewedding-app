@@ -2,6 +2,14 @@ import styled from "styled-components";
 import Table from "../../components/Table";
 import DeleteButton from "../../components/DeleteButton";
 import { formatCurrency } from "../../utils/helpers";
+import Tag from "../../components/Tag";
+import {
+  COLLEAGUES_TAG,
+  FAMILY_TAG,
+  FRIEND_TAG,
+  RELATIVES_TAG,
+} from "../../utils/constants";
+import { useTranslation } from "react-i18next";
 
 const Cell = styled.div`
   font-size: 1.6rem;
@@ -11,9 +19,20 @@ const Cell = styled.div`
 `;
 
 function GuestRow({ guest }) {
-  function deleteGuestByUser({ userId, guestId }) {
-    console.log("Delete guest");
-  }
+  const { t } = useTranslation();
+  const convertToTags = {
+    friend: "blue",
+    family: "green",
+    colleagues: "indigo",
+    relatives: "yellow",
+  };
+
+  const convertTagToTagName = function (tag) {
+    if (tag === FRIEND_TAG) return `${t("guestFilterFriend")}`;
+    else if (tag === FAMILY_TAG) return `${t("guestFilterFamily")}`;
+    else if (tag === COLLEAGUES_TAG) return `${t("guestFilterColleague")}`;
+    else if (tag === RELATIVES_TAG) return `${t("guestFilterRelatives")}`;
+  };
 
   return (
     <Table.Row>
@@ -24,7 +43,11 @@ function GuestRow({ guest }) {
       </Cell>
       <Cell>{guest.phone}</Cell>
       <Cell>{guest.notes}</Cell>
-      <Cell>{guest.tags}</Cell>
+      <Cell>
+        <Tag type={convertToTags[`${guest.tags}`.toLowerCase()]}>
+          {convertTagToTagName(`${guest.tags}`)}
+        </Tag>
+      </Cell>
       <DeleteButton>Delete</DeleteButton>
     </Table.Row>
   );

@@ -1,17 +1,18 @@
 import supabase from "./supabase";
-import { PAGE_SIZE } from "../utils/constants";
+import {
+  COLLEAGUES_TAG,
+  FAMILY_TAG,
+  FRIEND_TAG,
+  PAGE_SIZE,
+  RELATIVES_TAG,
+} from "../utils/constants";
 
 export async function getGuests({ filter, page }) {
-  let query = supabase
-    .from("guests")
-    .select("id, created_at, name, phone, gave_money, notes, tags", {
-      count: "exact",
-    });
+  let query = supabase.from("guests").select("*", {
+    count: "exact",
+  });
 
-  console.log(filter);
-  console.log(page);
-
-  if (filter) query = query[filter.method || "eq"](filter.field, filter.value);
+  if (filter) query = query.eq(filter.field, filter.value);
 
   if (page) {
     const from = (page - 1) * PAGE_SIZE;
@@ -27,4 +28,39 @@ export async function getGuests({ filter, page }) {
   }
 
   return { guests, count };
+}
+
+export async function countGuestsByTag() {
+  let queryCountGuests = supabase
+    .from("guests")
+    .select("id, created_at, name, phone, gave_money, notes, tags", {
+      count: "exact",
+    })
+    .in("tags", [FRIEND_TAG, FAMILY_TAG, COLLEAGUES_TAG, RELATIVES_TAG]);
+
+  const { data: counts, error } = await queryCountGuests;
+
+  if (error) {
+    throw new Error("Error when counting guests by tags.");
+  }
+
+  const friendCount = counts.filter((guest) =>
+    guest.tags.includes(FRIEND_TAG)
+  ).length;
+
+  const familyCount = counts.filter((guest) =>
+    guest.tags.includes(FAMILY_TAG)
+  ).length;
+
+  const colleaguesCount = counts.filter((guest) =>
+    guest.tags.includes(COLLEAGUES_TAG)
+  ).length;
+
+  const relativesCount = counts.filter((guest) =>
+    guest.tags.includes(RELATIVES_TAG)
+  ).length;
+
+  const total = counts.length;
+
+  return { friendCount, familyCount, colleaguesCount, relativesCount, total };
 }
