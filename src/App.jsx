@@ -9,6 +9,8 @@ import AppLayout from "./components/AppLayout";
 import InvitationMoney from "./pages/InvitationMoney";
 import Payment from "./pages/Payment";
 import Services from "./pages/Services";
+import Login from "./pages/Login";
+import PageNotFound from "./pages/PageNotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +36,8 @@ function App() {
             <Route path="payment" element={<Payment />} />
             <Route path="services" element={<Services />} />
           </Route>
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

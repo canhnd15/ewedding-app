@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { getGuests } from "../../services/apiGuests";
 
-export function useGuests() {
+export function useGuests(userId) {
   const [searchParams] = useSearchParams();
 
   //FILTER BY TAG
@@ -19,8 +19,8 @@ export function useGuests() {
     data: { guests, count } = {},
     error,
   } = useQuery({
-    queryKey: ["guests", filter, page],
-    queryFn: () => getGuests({ filter, page }),
+    queryKey: ["guests", filter, page, userId],
+    queryFn: () => getGuests({ filter, page, userId }),
   });
 
   return { isLoading, error, guests, count };

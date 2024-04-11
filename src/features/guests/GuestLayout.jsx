@@ -8,10 +8,10 @@ const StyledDashboardLayout = styled.div`
   gap: 2rem;
 `;
 
-function GuestLayout() {
+function GuestLayout({ userId }) {
   return (
     <StyledDashboardLayout>
-      <GuestBlocks />
+      <GuestBlocks userId={userId} />
     </StyledDashboardLayout>
   );
 }

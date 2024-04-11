@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Heading from "./Heading";
 
 const StyledLogo = styled.div`
   text-align: center;
@@ -12,7 +13,7 @@ const Img = styled.img`
 function Logo() {
   return (
     <StyledLogo>
-      <h1>Ewedding</h1>
+      <Heading>E-WEDDING</Heading>
     </StyledLogo>
   );
 }

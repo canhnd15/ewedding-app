@@ -31,5 +31,6 @@
   "guestTableHeaderName": "Tên",
   "guestTableHeaderGaveMoney": "Mình đã mừng",
   "guestTableHeaderPhone": "Số điện thoại",
-  "guestTableHeaderNotes": "Ghi chú"
+  "guestTableHeaderNotes": "Ghi chú",
+  "loginHeader": "Đăng nhập vào tài khoản."
 }

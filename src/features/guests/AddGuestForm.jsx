@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import Form from "../../components/Form";
 import FormRow from "../../components/FormRow";
 import FormRowCheckBox from "../../components/FormRowCheckBox";
-import Input from "../../components/Input";
+import Input from "../../components/SearchInput";
 import Button from "../../components/Button";
 import Checkbox from "../../components/Checkbox";
 import Table from "../../components/Table";

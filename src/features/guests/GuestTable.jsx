@@ -5,10 +5,10 @@ import { useGuests } from "./useGuests";
 import Spinner from "../../components/Spinner";
 import { useTranslation } from "react-i18next";
 
-function GuestTable() {
+function GuestTable({ userId }) {
   const { t } = useTranslation();
-  const { guests, isLoading, count } = useGuests();
 
+  const { guests, isLoading, count } = useGuests(userId);
   if (isLoading) return <Spinner />;
 
   return (

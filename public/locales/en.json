@@ -31,5 +31,6 @@
   "guestTableHeaderName": "Name",
   "guestTableHeaderGaveMoney": "My gave money",
   "guestTableHeaderPhone": "Phone",
-  "guestTableHeaderNotes": "Notes"
+  "guestTableHeaderNotes": "Notes",
+  "loginHeader": "Log in to your account."
 }

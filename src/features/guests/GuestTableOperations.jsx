@@ -1,6 +1,6 @@
 import TableOperations from "../../components/TableOperations";
 import Filter from "../../components/Filter";
-import Input from "../../components/Input";
+import Input from "../../components/SearchInput";
 import { useTranslation } from "react-i18next";
 import {
   COLLEAGUES_TAG,

@@ -7,15 +7,16 @@ import { useCountGuests } from "./useCountGuests";
 import Spinner from "../../components/Spinner";
 import { useTranslation } from "react-i18next";
 
-function GuestBlocks() {
+function GuestBlocks({ userId }) {
   const { t } = useTranslation();
+
   const {
     isLoading,
     friendCount,
     familyCount,
     colleaguesCount,
     relativesCount,
-  } = useCountGuests();
+  } = useCountGuests(userId);
 
   if (isLoading) return <Spinner />;
 
