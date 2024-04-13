@@ -34,5 +34,7 @@
   "guestTableHeaderPhone": "Số điện thoại",
   "guestTableHeaderNotes": "Ghi chú",
   "loginHeader": "Đăng nhập vào tài khoản.",
-  "noDataToShow": "Không có dữ liệu hiển thị."
+  "noDataToShow": "Không có dữ liệu hiển thị.",
+  "uploadGuestsFileNotes": "Khi tải file mới, dữ liệu sẽ được xoá và cập nhật lại.",
+  "uploadFileSuccessMessage": "Tải danh sách khách mời thành công."
 }

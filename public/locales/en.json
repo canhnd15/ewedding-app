@@ -34,5 +34,7 @@
   "guestTableHeaderPhone": "Phone",
   "guestTableHeaderNotes": "Notes",
   "loginHeader": "Log in to your account.",
-  "noDataToShow": "No data to show at the moment"
+  "noDataToShow": "No data to show at the moment",
+  "uploadGuestsFileNotes": "After uploading, data will be deleted and updated.",
+  "uploadFileSuccessMessage": "Upload file successfully."
 }

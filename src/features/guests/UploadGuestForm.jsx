@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import Form from "../../components/Form";
-import FormRow from "../../components/FormRow";
+import FormRowUpload from "../../components/FormRowUpload";
 import FileInput from "../../components/FileInput";
 import Button from "../../components/Button";
 import { useUser } from "../authentication/useUser";
@@ -35,11 +35,8 @@ function UploadGuestForm({ onCloseModal }) {
   };
 
   return (
-    <Form
-      onSubmit={handleSubmit(onUpload, onError)}
-      type={onCloseModal ? "modal" : "regular"}
-    >
-      <FormRow label={t("guestInviteMoreFormName")}>
+    <Form onSubmit={handleSubmit(onUpload, onError)}>
+      <FormRowUpload label={t("uploadGuestsFileNotes")}>
         <FileInput
           id="excel"
           accept=".xlsx, .xls"
@@ -47,8 +44,8 @@ function UploadGuestForm({ onCloseModal }) {
             required: "This field is required",
           })}
         />
-      </FormRow>
-      <FormRow>
+      </FormRowUpload>
+      <FormRowUpload>
         <Button
           variation="secondary"
           type="reset"
@@ -57,7 +54,7 @@ function UploadGuestForm({ onCloseModal }) {
           {t("guestInviteMoreFormCancelBtn")}
         </Button>
         <Button disabled={isUploading}>{t("guestUploadBtn")}</Button>
-      </FormRow>
+      </FormRowUpload>
     </Form>
   );
 }
