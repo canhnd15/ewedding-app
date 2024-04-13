@@ -10,6 +10,7 @@
   "guestCollege": "Colleagues",
   "guestRelatives": "Relatives",
   "guestUploadBtn": "UPLOAD",
+  "guestSampleFileBtn": "TEMPLATE",
   "guestAddMoreBtn": "INVITE MORE",
   "guestFilterAll": "All",
   "guestFilterFriend": "Friends",
@@ -32,5 +33,6 @@
   "guestTableHeaderGaveMoney": "My gave money",
   "guestTableHeaderPhone": "Phone",
   "guestTableHeaderNotes": "Notes",
-  "loginHeader": "Log in to your account."
+  "loginHeader": "Log in to your account.",
+  "noDataToShow": "No data to show at the moment"
 }

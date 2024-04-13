@@ -10,6 +10,7 @@
   "guestCollege": "đồng nghiệp",
   "guestRelatives": "họ hàng",
   "guestUploadBtn": "TẢI LÊN",
+  "guestSampleFileBtn": "FILE MẪU",
   "guestAddMoreBtn": "MỜI THÊM",
   "guestFilterAll": "Tất cả",
   "guestFilterFriend": "Bạn bè",
@@ -32,5 +33,6 @@
   "guestTableHeaderGaveMoney": "Mình đã mừng",
   "guestTableHeaderPhone": "Số điện thoại",
   "guestTableHeaderNotes": "Ghi chú",
-  "loginHeader": "Đăng nhập vào tài khoản."
+  "loginHeader": "Đăng nhập vào tài khoản.",
+  "noDataToShow": "Không có dữ liệu hiển thị."
 }

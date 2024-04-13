@@ -13,9 +13,9 @@ import { useTranslation } from "react-i18next";
 
 const Cell = styled.div`
   font-size: 1.6rem;
-  font-weight: 100;
+  font-weight: 300;
   color: var(--color-grey-600);
-  font-family: "Sono";
+  font-family: "Roboto", sans-serif;
 `;
 
 function GuestRow({ guest }) {
@@ -36,13 +36,17 @@ function GuestRow({ guest }) {
 
   return (
     <Table.Row>
-      <Cell>{guest.id}</Cell>
+      {/* <Cell>{guest.id}</Cell> */}
       <Cell>{guest.name}</Cell>
       <Cell>
-        {Number(guest.gave_money) === 0 ? "" : formatCurrency(guest.gave_money)}
+        {Number(guest.gave_money) === 0 ? (
+          <span>&mdash;</span>
+        ) : (
+          formatCurrency(guest.gave_money)
+        )}
       </Cell>
-      <Cell>{guest.phone}</Cell>
-      <Cell>{guest.notes}</Cell>
+      <Cell>{guest.phone === null ? <span>&mdash;</span> : guest.phone}</Cell>
+      <Cell>{guest.notes === null ? <span>&mdash;</span> : guest.notes}</Cell>
       <Cell>
         <Tag type={convertToTags[`${guest.tags}`.toLowerCase()]}>
           {convertTagToTagName(`${guest.tags}`)}

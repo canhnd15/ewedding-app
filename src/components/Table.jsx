@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 const StyledTable = styled.div`
@@ -88,7 +89,9 @@ function Row({ children }) {
 }
 
 function Body({ data, render }) {
-  if (!data.length) return <Empty>No data to show at the moment</Empty>;
+  const { t } = useTranslation();
+
+  if (!data.length) return <Empty>{t("noDataToShow")}</Empty>;
   return <StyledBody>{data.map(render)}</StyledBody>;
 }
 

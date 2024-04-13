@@ -19,7 +19,7 @@ export function useGuests(userId) {
     data: { guests, count } = {},
     error,
   } = useQuery({
-    queryKey: ["guests", filter, page, userId],
+    queryKey: ["guests", filter, page],
     queryFn: () => getGuests({ filter, page, userId }),
   });
 

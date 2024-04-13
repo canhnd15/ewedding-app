@@ -1,15 +1,17 @@
-import Heading from "../components/Heading";
-import HeadingSpan from "../components/HeadingSpan";
-import Row from "../components/Row";
 import { t } from "i18next";
-import GuestLayout from "../features/guests/GuestLayout";
-import GuestTable from "../features/guests/GuestTable";
-import GuestTableOperations from "../features/guests/GuestTableOperations";
-import Button from "../components/Button";
-import AddGuest from "../features/guests/AddGuest";
 import { useCountGuests } from "../features/guests/useCountGuests";
 import { useUser } from "../features/authentication/useUser";
+import { PiUploadSimple } from "react-icons/pi";
+
+import Heading from "../components/Heading";
+import GuestLayout from "../features/guests/GuestLayout";
+import HeadingSpan from "../components/HeadingSpan";
+import Row from "../components/Row";
+import GuestTable from "../features/guests/GuestTable";
+import GuestTableOperations from "../features/guests/GuestTableOperations";
+import AddGuest from "../features/guests/AddGuest";
 import Spinner from "../components/Spinner";
+import GuestFileActions from "../features/guests/GuestFileActions";
 
 function Guests() {
   const { user, isLoading: isLoadingUser } = useUser();
@@ -26,7 +28,7 @@ function Guests() {
               {t("guestScreenHeader")}
               <HeadingSpan color="red">{total}</HeadingSpan>
             </Heading>
-            <Button>{t("guestUploadBtn")}</Button>
+            <GuestFileActions />
           </Row>
           <Row>
             <GuestLayout userId={user.id} />

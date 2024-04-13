@@ -12,9 +12,9 @@ function GuestTable({ userId }) {
   if (isLoading) return <Spinner />;
 
   return (
-    <Table columns="30px 150px 150px 150px 250px 150px 100px">
+    <Table columns="230px 150px 150px 300px 100px 50px">
       <Table.Header>
-        <div>{t("guestTableHeaderNo")}</div>
+        {/* <div>{t("guestTableHeaderNo")}</div> */}
         <div>{t("guestTableHeaderName")}</div>
         <div>{t("guestTableHeaderGaveMoney")}</div>
         <div>{t("guestTableHeaderPhone")}</div>
