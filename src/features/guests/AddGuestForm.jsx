@@ -18,24 +18,39 @@ function AddGuestForm({ editedGuest = {}, onCloseModal }) {
   //   const { isEditing, editCabin } = useEditCabin();
   const [guests, setGuests] = useState([
     {
-      id: 10,
       name: "Nguyen Van A",
       phone: "0357664013",
-      myGaveMoney: 300000,
+      myGaveMoney: "300000",
       note: "hàng xóm",
     },
     {
-      id: 11,
       name: "Nguyen Van B",
       phone: "0357664013",
-      myGaveMoney: 200000,
+      myGaveMoney: "200000",
       note: "hàng xóm",
     },
     {
-      id: 12,
       name: "Nguyen Van C",
       phone: "0357664013",
-      myGaveMoney: 500000,
+      myGaveMoney: "500000",
+      note: "bạn mẫu giáo",
+    },
+    {
+      name: "Nguyen Van A",
+      phone: "0357664013",
+      myGaveMoney: "300000",
+      note: "hàng xóm",
+    },
+    {
+      name: "Nguyen Van B",
+      phone: "0357664013",
+      myGaveMoney: "200000",
+      note: "hàng xóm",
+    },
+    {
+      name: "Nguyen Van C",
+      phone: "0357664013",
+      myGaveMoney: "500000",
       note: "bạn mẫu giáo",
     },
   ]);
@@ -47,7 +62,7 @@ function AddGuestForm({ editedGuest = {}, onCloseModal }) {
   const { id: editId, ...editValues } = editedGuest;
   const isEditSession = Boolean(editId);
 
-  const { register, handleSubmit, reset, getValues, formState } = useForm({
+  const { register, handleSubmit, formState } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
   const { errors } = formState;
@@ -126,9 +141,8 @@ function AddGuestForm({ editedGuest = {}, onCloseModal }) {
         </Button>
       </FormRow>
 
-      <Table columns="0.1fr 0.5fr 0.5fr 0.5fr 0.8fr 0.1rem 2rem">
+      <Table type={"small"} columns="150px 130px 130px 120px 50px 50px">
         <Table.Header>
-          <div>{t("guestTableHeaderNo")}</div>
           <div>{t("guestTableHeaderName")}</div>
           <div>{t("guestTableHeaderGaveMoney")}</div>
           <div>{t("guestTableHeaderPhone")}</div>

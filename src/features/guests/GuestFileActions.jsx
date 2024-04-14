@@ -1,8 +1,13 @@
-import Button from "../../components/Button";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+
+import { SiMicrosoftexcel } from "react-icons/si";
+import { PiDownloadBold } from "react-icons/pi";
+import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 import UploadGuestForm from "./UploadGuestForm";
+import { PUBLIC_GUEST_LIST_EXCEL_TEMPLATE } from "../../utils/constants";
+import ButtonLink from "../../components/ButtonLink";
 
 const GuestFileActionBlock = styled.div`
   display: flex;
@@ -11,24 +16,38 @@ const GuestFileActionBlock = styled.div`
   gap: 10px;
 `;
 
+const InnerButton = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
 function GuestFileActions() {
   const { t } = useTranslation();
-
-  const handleDownload = () => {};
 
   return (
     <GuestFileActionBlock>
       <div>
         <Modal>
           <Modal.Open opens={"guest-upload-form"}>
-            <Button>{t("guestUploadBtn")}</Button>
+            <Button variation="excel">
+              <InnerButton>
+                {t("guestUploadBtn")}
+                <SiMicrosoftexcel size={"18px"} />
+              </InnerButton>
+            </Button>
           </Modal.Open>
           <Modal.Window name={"guest-upload-form"}>
             <UploadGuestForm />
           </Modal.Window>
         </Modal>
       </div>
-      <Button onClick={handleDownload}>{t("guestSampleFileBtn")}</Button>
+      <ButtonLink href={PUBLIC_GUEST_LIST_EXCEL_TEMPLATE}>
+        <InnerButton>
+          {t("guestSampleFileBtn")}
+          <PiDownloadBold size={"18px"} />
+        </InnerButton>
+      </ButtonLink>
     </GuestFileActionBlock>
   );
 }

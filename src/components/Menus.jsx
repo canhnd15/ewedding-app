@@ -69,7 +69,7 @@ const MenusContext = createContext();
 
 function Menus({ children }) {
   const [openId, setOpenId] = useState("");
-  const [position, setPosition] = useState("");
+  const [position, setPosition] = useState(null);
 
   const close = () => setOpenId("");
   const open = setOpenId;
@@ -87,7 +87,7 @@ function Toggle({ id }) {
   const { openId, close, open, setPosition } = useContext(MenusContext);
 
   function handleClick(e) {
-    e.preventPropagation();
+    e.stopPropagation();
 
     const rect = e.target.closest("button").getBoundingClientRect();
     setPosition({

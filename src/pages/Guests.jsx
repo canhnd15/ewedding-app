@@ -1,7 +1,6 @@
 import { t } from "i18next";
 import { useCountGuests } from "../features/guests/useCountGuests";
 import { useUser } from "../features/authentication/useUser";
-import { PiUploadSimple } from "react-icons/pi";
 
 import Heading from "../components/Heading";
 import GuestLayout from "../features/guests/GuestLayout";
@@ -15,7 +14,23 @@ import GuestFileActions from "../features/guests/GuestFileActions";
 
 function Guests() {
   const { user, isLoading: isLoadingUser } = useUser();
-  const { total, isLoading: isLoadingGuestCounters } = useCountGuests();
+  const {
+    isLoading: isLoadingGuestCounters,
+    total,
+    friendCount,
+    familyCount,
+    colleaguesCount,
+    relativesCount,
+  } = useCountGuests(user.id);
+
+  const counterInfo = {
+    userId: user.id,
+    total: total,
+    friendCount: friendCount,
+    familyCount: familyCount,
+    colleaguesCount: colleaguesCount,
+    relativesCount: relativesCount,
+  };
 
   if (isLoadingUser && isLoadingGuestCounters) return <Spinner />;
 
@@ -31,7 +46,7 @@ function Guests() {
             <GuestFileActions />
           </Row>
           <Row>
-            <GuestLayout userId={user.id} />
+            <GuestLayout counterInfo={counterInfo} />
             <Row type="horizontal">
               <AddGuest />
               <GuestTableOperations />

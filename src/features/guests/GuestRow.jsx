@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Table from "../../components/Table";
-import DeleteButton from "../../components/DeleteButton";
 import { formatCurrency } from "../../utils/helpers";
 import Tag from "../../components/Tag";
 import {
@@ -10,16 +9,27 @@ import {
   RELATIVES_TAG,
 } from "../../utils/constants";
 import { useTranslation } from "react-i18next";
+import { HiTrash, HiMiniPencilSquare } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 
 const Cell = styled.div`
   font-size: 1.6rem;
   font-weight: 300;
   color: var(--color-grey-600);
   font-family: "Roboto", sans-serif;
+
+  &:has(button) {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+  }
 `;
 
 function GuestRow({ guest }) {
   const { t } = useTranslation();
+
+  const navigate = useNavigate();
+
   const convertToTags = {
     friend: "blue",
     family: "green",
@@ -36,7 +46,6 @@ function GuestRow({ guest }) {
 
   return (
     <Table.Row>
-      {/* <Cell>{guest.id}</Cell> */}
       <Cell>{guest.name}</Cell>
       <Cell>
         {Number(guest.gave_money) === 0 ? (
@@ -52,7 +61,15 @@ function GuestRow({ guest }) {
           {convertTagToTagName(`${guest.tags}`)}
         </Tag>
       </Cell>
-      <DeleteButton>Delete</DeleteButton>
+
+      <Cell>
+        <button>
+          <HiMiniPencilSquare color="green" />
+        </button>
+        <button>
+          <HiTrash color="red" />
+        </button>
+      </Cell>
     </Table.Row>
   );
 }

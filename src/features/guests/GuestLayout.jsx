@@ -8,10 +8,10 @@ const StyledDashboardLayout = styled.div`
   gap: 2rem;
 `;
 
-function GuestLayout({ userId }) {
+function GuestLayout({ counterInfo }) {
   return (
     <StyledDashboardLayout>
-      <GuestBlocks userId={userId} />
+      <GuestBlocks counterInfo={counterInfo} />
     </StyledDashboardLayout>
   );
 }

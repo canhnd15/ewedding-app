@@ -1,6 +1,15 @@
 import { createContext, useContext } from "react";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const types = {
+  small: css`
+    height: 250px;
+  `,
+  normal: css`
+    height: fit-content;
+  `,
+};
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -8,7 +17,10 @@ const StyledTable = styled.div`
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  ${(props) => types[props.type]}
 `;
 
 const CommonRow = styled.div`
@@ -17,6 +29,8 @@ const CommonRow = styled.div`
   column-gap: 2.4rem;
   align-items: center;
   transition: none;
+  align-content: center;
+  justify-content: space-evenly;
 `;
 
 const StyledHeader = styled(CommonRow)`
@@ -27,6 +41,9 @@ const StyledHeader = styled(CommonRow)`
   letter-spacing: 0.4px;
   font-weight: 600;
   color: var(--color-grey-600);
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 
 const StyledRow = styled(CommonRow)`
@@ -61,10 +78,12 @@ const Empty = styled.p`
 
 const TableContext = createContext();
 
-function Table({ columns, children }) {
+function Table({ type, columns, children }) {
   return (
     <TableContext.Provider value={{ columns }}>
-      <StyledTable role="table">{children}</StyledTable>
+      <StyledTable type={type} role="table">
+        {children}
+      </StyledTable>
     </TableContext.Provider>
   );
 }

@@ -19,6 +19,7 @@ const GlobalStyles = createGlobalStyle`
   --color-blue-100: #e0f2fe;
   --color-blue-700: #0369a1;
   --color-green-100: #dcfce7;
+  --color-green-500: #37b869;
   --color-green-700: #15803d;
   --color-yellow-100: #fef9c3;
   --color-yellow-700: #a16207;
@@ -59,6 +60,7 @@ const GlobalStyles = createGlobalStyle`
 --color-blue-100: #075985;
 --color-blue-700: #e0f2fe;
 --color-green-100: #166534;
+--color-green-500: #37b869;
 --color-green-700: #dcfce7;
 --color-yellow-100: #854d0e;
 --color-yellow-700: #fef9c3;

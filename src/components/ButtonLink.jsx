@@ -10,7 +10,7 @@ const sizes = {
   `,
   medium: css`
     font-size: 1.4rem;
-    padding: 0.7rem 1.2rem;
+    padding: 0.6rem 1.2rem;
     font-weight: 500;
   `,
   large: css`
@@ -55,7 +55,7 @@ const variations = {
   `,
 };
 
-const Button = styled.button`
+const ButtonLink = styled.a`
   border: none;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
@@ -64,9 +64,9 @@ const Button = styled.button`
   ${(props) => variations[props.variation]}
 `;
 
-Button.defaultProps = {
+ButtonLink.defaultProps = {
   variation: "primary",
   size: "medium",
 };
 
-export default Button;
+export default ButtonLink;
