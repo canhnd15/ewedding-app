@@ -6,6 +6,7 @@ import {
   COLLEAGUES_TAG,
   FAMILY_TAG,
   FRIEND_TAG,
+  OTHERS_TAG,
   RELATIVES_TAG,
 } from "../../utils/constants";
 import { useTranslation } from "react-i18next";
@@ -25,16 +26,25 @@ const Cell = styled.div`
   }
 `;
 
+const ActionButton = styled.button`
+  background: none;
+  border: none;
+
+  & svg {
+    color: var(---color-grey-400);
+    transition: all 0.3s;
+  }
+`;
+
 function GuestRow({ guest }) {
   const { t } = useTranslation();
-
-  const navigate = useNavigate();
 
   const convertToTags = {
     friend: "blue",
     family: "green",
     colleagues: "indigo",
     relatives: "yellow",
+    others: "red",
   };
 
   const convertTagToTagName = function (tag) {
@@ -42,6 +52,7 @@ function GuestRow({ guest }) {
     else if (tag === FAMILY_TAG) return `${t("guestFilterFamily")}`;
     else if (tag === COLLEAGUES_TAG) return `${t("guestFilterColleague")}`;
     else if (tag === RELATIVES_TAG) return `${t("guestFilterRelatives")}`;
+    else if (tag === OTHERS_TAG) return `${t("guestFilterOthers")}`;
   };
 
   return (
@@ -63,12 +74,12 @@ function GuestRow({ guest }) {
       </Cell>
 
       <Cell>
-        <button>
-          <HiMiniPencilSquare color="green" />
-        </button>
-        <button>
-          <HiTrash color="red" />
-        </button>
+        <ActionButton>
+          <HiMiniPencilSquare size={"20px"} />
+        </ActionButton>
+        <ActionButton>
+          <HiTrash size={"20px"} />
+        </ActionButton>
       </Cell>
     </Table.Row>
   );

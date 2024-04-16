@@ -68,3 +68,23 @@ export async function countGuestsByTag(userId) {
 
   return { friendCount, familyCount, colleaguesCount, relativesCount, total };
 }
+
+export async function batchInsertGuests(guests, userId) {
+  console.log(guests);
+  console.log(userId);
+
+  const { error: deleteError } = await supabase
+    .from("guests")
+    .delete()
+    .eq("user_id", userId);
+
+  if (deleteError)
+    throw new Error("Error when deleting existing guest records.");
+
+  const { data, error } = await supabase.from("guests").insert(guests).select();
+  if (error) {
+    throw new Error("Error when inserting new guest records.");
+  }
+
+  return { data, error };
+}

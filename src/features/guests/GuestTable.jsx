@@ -8,8 +8,8 @@ import Menus from "../../components/Menus";
 
 function GuestTable({ userId }) {
   const { t } = useTranslation();
-
   const { guests, isLoading, count } = useGuests(userId);
+
   if (isLoading) return <Spinner />;
 
   return (

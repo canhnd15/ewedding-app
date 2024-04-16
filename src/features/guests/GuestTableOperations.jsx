@@ -6,6 +6,7 @@ import {
   COLLEAGUES_TAG,
   FAMILY_TAG,
   FRIEND_TAG,
+  OTHERS_TAG,
   RELATIVES_TAG,
 } from "../../utils/constants";
 
@@ -22,6 +23,7 @@ function GuestTableOperations() {
           { value: FAMILY_TAG, label: `${t("guestFilterFamily")}` },
           { value: COLLEAGUES_TAG, label: `${t("guestFilterColleague")}` },
           { value: RELATIVES_TAG, label: `${t("guestFilterRelatives")}` },
+          { value: OTHERS_TAG, label: `${t("guestFilterOthers")}` },
         ]}
       />
 

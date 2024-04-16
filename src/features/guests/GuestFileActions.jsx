@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import { getPublicTemplateUrl } from "../../services/apiFiles";
 
 import { SiMicrosoftexcel } from "react-icons/si";
 import { PiDownloadBold } from "react-icons/pi";
@@ -24,6 +25,7 @@ const InnerButton = styled.div`
 
 function GuestFileActions() {
   const { t } = useTranslation();
+  const { data: publicUrl } = getPublicTemplateUrl();
 
   return (
     <GuestFileActionBlock>

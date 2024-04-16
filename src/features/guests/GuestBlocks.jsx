@@ -3,6 +3,8 @@ import { FaUserFriends } from "react-icons/fa";
 import { MdFamilyRestroom } from "react-icons/md";
 import { ImUserTie } from "react-icons/im";
 import { PiUsersFourLight } from "react-icons/pi";
+import { FaPeopleLine } from "react-icons/fa6";
+
 import { useTranslation } from "react-i18next";
 
 function GuestBlocks({ counterInfo }) {
@@ -32,6 +34,12 @@ function GuestBlocks({ counterInfo }) {
         title={t("guestRelatives")}
         color="yellow"
         icon={<PiUsersFourLight />}
+        value={counterInfo.relativesCount}
+      />
+      <Block
+        title={t("guestOthers")}
+        color="red"
+        icon={<FaPeopleLine />}
         value={counterInfo.relativesCount}
       />
     </>
