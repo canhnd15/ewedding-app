@@ -1,15 +1,6 @@
 import { createContext, useContext } from "react";
 import { useTranslation } from "react-i18next";
-import styled, { css } from "styled-components";
-
-const types = {
-  small: css`
-    height: 250px;
-  `,
-  normal: css`
-    height: fit-content;
-  `,
-};
+import styled from "styled-components";
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -19,8 +10,6 @@ const StyledTable = styled.div`
   border-radius: 7px;
   overflow-y: auto;
   overflow-x: hidden;
-
-  ${(props) => types[props.type]}
 `;
 
 const CommonRow = styled.div`

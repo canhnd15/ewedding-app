@@ -10,8 +10,11 @@ import {
   RELATIVES_TAG,
 } from "../../utils/constants";
 import { useTranslation } from "react-i18next";
-import { HiTrash, HiMiniPencilSquare } from "react-icons/hi2";
-import { useNavigate } from "react-router-dom";
+import { HiTrash, HiEye, HiMiniPencilSquare } from "react-icons/hi2";
+import Modal from "../../components/Modal";
+import ConfirmDelete from "../../components/ConfirmDelete";
+import Menus from "../../components/Menus";
+import SwitchButton from "../../components/SwitchButton";
 
 const Cell = styled.div`
   font-size: 1.6rem;
@@ -23,16 +26,6 @@ const Cell = styled.div`
     display: flex;
     justify-content: center;
     gap: 7px;
-  }
-`;
-
-const ActionButton = styled.button`
-  background: none;
-  border: none;
-
-  & svg {
-    color: var(---color-grey-400);
-    transition: all 0.3s;
   }
 `;
 
@@ -68,19 +61,48 @@ function GuestRow({ guest }) {
       <Cell>{guest.phone === null ? <span>&mdash;</span> : guest.phone}</Cell>
       <Cell>{guest.notes === null ? <span>&mdash;</span> : guest.notes}</Cell>
       <Cell>
+        {guest.is_invited === false ? (
+          <SwitchButton isChecked={false} />
+        ) : (
+          <SwitchButton isChecked={true} />
+        )}
+      </Cell>
+      <Cell>
         <Tag type={convertToTags[`${guest.tags}`.toLowerCase()]}>
           {convertTagToTagName(`${guest.tags}`)}
         </Tag>
       </Cell>
 
-      <Cell>
-        <ActionButton>
-          <HiMiniPencilSquare size={"20px"} />
-        </ActionButton>
-        <ActionButton>
-          <HiTrash size={"20px"} />
-        </ActionButton>
-      </Cell>
+      <Modal>
+        <Menus.Menu>
+          <Menus.Toggle id={`${guest.id}`} />
+          <Menus.List id={`${guest.id}`}>
+            <Menus.Button
+              icon={<HiMiniPencilSquare />}
+              onClick={() => {
+                console.log("updating");
+              }}
+            >
+              {t("guestTableActionUpdate")}
+            </Menus.Button>
+
+            <Modal.Open opens="delete">
+              <Menus.Button icon={<HiTrash />}>
+                {t("guestTableActionDelete")}
+              </Menus.Button>
+            </Modal.Open>
+          </Menus.List>
+        </Menus.Menu>
+
+        <Modal.Window name="delete">
+          <ConfirmDelete
+            resourceName={t("deleteGuestConfirmResource")}
+            onConfirm={() => {
+              console.log("delete");
+            }}
+          />
+        </Modal.Window>
+      </Modal>
     </Table.Row>
   );
 }

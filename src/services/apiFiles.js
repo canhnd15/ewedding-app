@@ -101,9 +101,6 @@ export async function downloadGuestTemplateFile() {
         download: true,
       }
     );
-
-  console.log(data);
-
   //https://tkzouaxollvajkmzihrc.supabase.co/storage/v1/object/sign/guest-private-files/guest_template_file_excel.xlsx?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJndWVzdC1wcml2YXRlLWZpbGVzL2d1ZXN0X3RlbXBsYXRlX2ZpbGVfZXhjZWwueGxzeCIsImlhdCI6MTcxMzIzNzQxMCwiZXhwIjoxNzE1ODI5NDEwfQ.nDyi3vbhCz5I9mlmt3vZYfwpdwjjeFs7MGFpnb5g3E8&t=2024-04-16T03%3A16%3A50.748Z
   //https://tkzouaxollvajkmzihrc.supabase.co/storage/v1/object/public/guest_files/guest_template_file_excel.xlsx
 

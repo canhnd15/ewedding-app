@@ -1,4 +1,3 @@
-import { t } from "i18next";
 import { useCountGuests } from "../features/guests/useCountGuests";
 import { useUser } from "../features/authentication/useUser";
 
@@ -11,8 +10,12 @@ import GuestTableOperations from "../features/guests/GuestTableOperations";
 import AddGuest from "../features/guests/AddGuest";
 import Spinner from "../components/Spinner";
 import GuestFileActions from "../features/guests/GuestFileActions";
+import Input from "../components/SearchInput";
+import RowOfBlocks from "../components/RowOfBlocks";
+import { useTranslation } from "react-i18next";
 
 function Guests() {
+  const { t } = useTranslation();
   const { user, isLoading: isLoadingUser } = useUser();
   const {
     isLoading: isLoadingGuestCounters,
@@ -48,8 +51,11 @@ function Guests() {
           <Row>
             <GuestLayout counterInfo={counterInfo} />
             <Row type="horizontal">
-              <AddGuest />
               <GuestTableOperations />
+              <RowOfBlocks type="horizontal">
+                <Input placeholder={`${t("guestSearchPlaceholder")}`} />
+                <AddGuest />
+              </RowOfBlocks>
             </Row>
             <GuestTable userId={user.id} />
           </Row>

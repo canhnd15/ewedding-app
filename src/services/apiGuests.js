@@ -70,9 +70,6 @@ export async function countGuestsByTag(userId) {
 }
 
 export async function batchInsertGuests(guests, userId) {
-  console.log(guests);
-  console.log(userId);
-
   const { error: deleteError } = await supabase
     .from("guests")
     .delete()

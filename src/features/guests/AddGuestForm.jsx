@@ -14,46 +14,7 @@ import { useState } from "react";
 
 function AddGuestForm({ editedGuest = {}, onCloseModal }) {
   const { t } = useTranslation();
-  //   const { isCreating, createCabin } = useCreateCabin();
-  //   const { isEditing, editCabin } = useEditCabin();
-  const [guests, setGuests] = useState([
-    {
-      name: "Nguyen Van A",
-      phone: "0357664013",
-      myGaveMoney: "300000",
-      note: "hàng xóm",
-    },
-    {
-      name: "Nguyen Van B",
-      phone: "0357664013",
-      myGaveMoney: "200000",
-      note: "hàng xóm",
-    },
-    {
-      name: "Nguyen Van C",
-      phone: "0357664013",
-      myGaveMoney: "500000",
-      note: "bạn mẫu giáo",
-    },
-    {
-      name: "Nguyen Van A",
-      phone: "0357664013",
-      myGaveMoney: "300000",
-      note: "hàng xóm",
-    },
-    {
-      name: "Nguyen Van B",
-      phone: "0357664013",
-      myGaveMoney: "200000",
-      note: "hàng xóm",
-    },
-    {
-      name: "Nguyen Van C",
-      phone: "0357664013",
-      myGaveMoney: "500000",
-      note: "bạn mẫu giáo",
-    },
-  ]);
+  const [guests, setGuests] = useState([]);
 
   const isCreating = false;
   const isEditing = false;
@@ -141,7 +102,7 @@ function AddGuestForm({ editedGuest = {}, onCloseModal }) {
         </Button>
       </FormRow>
 
-      <Table type={"small"} columns="150px 130px 130px 120px 50px 50px">
+      <Table columns="150px 130px 130px 120px 50px 50px">
         <Table.Header>
           <div>{t("guestTableHeaderName")}</div>
           <div>{t("guestTableHeaderGaveMoney")}</div>

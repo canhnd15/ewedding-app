@@ -13,7 +13,8 @@ const Img = styled.img`
 function Logo() {
   return (
     <StyledLogo>
-      <Heading>E-WEDDING</Heading>
+      {/* <Heading>E-WEDDING</Heading> */}
+      <Img src="/logo.png" alt="logo" />
     </StyledLogo>
   );
 }

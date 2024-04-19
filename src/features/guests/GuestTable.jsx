@@ -14,12 +14,13 @@ function GuestTable({ userId }) {
 
   return (
     <Menus>
-      <Table type={"normal"} columns="230px 150px 150px 300px 100px 50px">
+      <Table columns="170px 120px 110px 250px 70px 100px 50px">
         <Table.Header>
           <div>{t("guestTableHeaderName")}</div>
           <div>{t("guestTableHeaderGaveMoney")}</div>
           <div>{t("guestTableHeaderPhone")}</div>
           <div>{t("guestTableHeaderNotes")}</div>
+          <div>{t("isInvited")}</div>
           <div>{t("guestInviteMoreFormTags")}</div>
           <div></div>
         </Table.Header>
