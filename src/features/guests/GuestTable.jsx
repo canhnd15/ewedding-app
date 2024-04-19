@@ -14,7 +14,7 @@ function GuestTable({ userId }) {
 
   return (
     <Menus>
-      <Table columns="170px 120px 110px 250px 70px 100px 50px">
+      <Table columns="170px 130px 110px 250px 70px 100px 50px">
         <Table.Header>
           <div>{t("guestTableHeaderName")}</div>
           <div>{t("guestTableHeaderGaveMoney")}</div>

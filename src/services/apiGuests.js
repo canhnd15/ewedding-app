@@ -3,11 +3,12 @@ import {
   COLLEAGUES_TAG,
   FAMILY_TAG,
   FRIEND_TAG,
+  OTHERS_TAG,
   PAGE_SIZE,
   RELATIVES_TAG,
 } from "../utils/constants";
 
-export async function getGuests({ filter, page, userId }) {
+export async function getGuests({ filterTags, filterInvited, page, userId }) {
   let query = supabase
     .from("guests")
     .select("*", {
@@ -15,7 +16,8 @@ export async function getGuests({ filter, page, userId }) {
     })
     .eq("user_id", userId);
 
-  if (filter) query = query.eq(filter.field, filter.value);
+  if (filterTags) query = query.eq(filterTags.field, filterTags.value);
+  if (filterInvited) query = query.eq(filterInvited.field, filterInvited.value);
 
   if (page) {
     const from = (page - 1) * PAGE_SIZE;
@@ -40,7 +42,13 @@ export async function countGuestsByTag(userId) {
       count: "exact",
     })
     .eq("user_id", userId)
-    .in("tags", [FRIEND_TAG, FAMILY_TAG, COLLEAGUES_TAG, RELATIVES_TAG]);
+    .in("tags", [
+      FRIEND_TAG,
+      FAMILY_TAG,
+      COLLEAGUES_TAG,
+      RELATIVES_TAG,
+      OTHERS_TAG,
+    ]);
 
   const { data: counts, error } = await queryCountGuests;
 
@@ -64,12 +72,23 @@ export async function countGuestsByTag(userId) {
     guest.tags.includes(RELATIVES_TAG)
   ).length;
 
+  const othersCount = counts.filter((guest) =>
+    guest.tags.includes(OTHERS_TAG)
+  ).length;
+
   const total = counts.length;
 
-  return { friendCount, familyCount, colleaguesCount, relativesCount, total };
+  return {
+    friendCount,
+    familyCount,
+    colleaguesCount,
+    relativesCount,
+    othersCount,
+    total,
+  };
 }
 
-export async function batchInsertGuests(guests, userId) {
+export async function batchInsertGuestsByFile(guests, userId) {
   const { error: deleteError } = await supabase
     .from("guests")
     .delete()
@@ -84,4 +103,31 @@ export async function batchInsertGuests(guests, userId) {
   }
 
   return { data, error };
+}
+
+export async function batchInsertGuestsManually(guests) {
+  const { data, error } = await supabase.from("guests").insert(guests).select();
+
+  if (error) {
+    throw new Error("Error when inserting new guest records.");
+  }
+  return { data, error };
+}
+
+export async function updateInvitedStatusApi(guestId, currentInvitedStatus) {
+  const { data, error } = await supabase
+    .from("guests")
+    .update({ is_invited: !currentInvitedStatus })
+    .eq("id", guestId)
+    .select();
+
+  if (error) throw new Error("Error when updating invited status.");
+
+  return { data, error };
+}
+
+export async function deleteGuestByIdApi(guestId) {
+  const { error } = await supabase.from("guests").delete().eq("id", guestId);
+
+  if (error) throw new Error("Error when deleting guest.");
 }

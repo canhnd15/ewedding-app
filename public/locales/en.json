@@ -44,5 +44,7 @@
   "deleteGuestConfirmResource": "guest",
   "deleteGuestConfirmMessage": "Are you sure you want to delete this resource?",
   "isInvited": "Invited",
-  "notInvited": "Not Invited"
+  "notInvited": "Not Invited",
+  "updateSuccessfullyMessage": "Update successfully.",
+  "deleteSuccessfullyMessage": "Delete successfully."
 }

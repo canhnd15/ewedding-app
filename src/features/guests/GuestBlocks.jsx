@@ -40,7 +40,7 @@ function GuestBlocks({ counterInfo }) {
         title={t("guestOthers")}
         color="red"
         icon={<FaPeopleLine />}
-        value={counterInfo.relativesCount}
+        value={counterInfo.othersCount}
       />
     </>
   );

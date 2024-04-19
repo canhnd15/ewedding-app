@@ -10,12 +10,8 @@ import {
   RELATIVES_TAG,
 } from "../../utils/constants";
 import { useTranslation } from "react-i18next";
-import { HiTrash, HiEye, HiMiniPencilSquare } from "react-icons/hi2";
-import Modal from "../../components/Modal";
-import ConfirmDelete from "../../components/ConfirmDelete";
-import Menus from "../../components/Menus";
 import SwitchButton from "../../components/SwitchButton";
-import { useDeleteGuest } from "./useDeleteGuest";
+import { HiTrash } from "react-icons/hi2";
 
 const Cell = styled.div`
   font-size: 1.6rem;
@@ -30,9 +26,8 @@ const Cell = styled.div`
   }
 `;
 
-function GuestRow({ guest }) {
+function AddGuestTableRow({ guest, guests, setGuests }) {
   const { t } = useTranslation();
-  const { deleteGuestById, isDeleting } = useDeleteGuest();
 
   const convertToTags = {
     friend: "blue",
@@ -49,6 +44,14 @@ function GuestRow({ guest }) {
     else if (tag === RELATIVES_TAG) return `${t("guestFilterRelatives")}`;
     else if (tag === OTHERS_TAG) return `${t("guestFilterOthers")}`;
   };
+
+  function handleDeleteGuest(guestId) {
+    const updatedGuests = guests
+      .slice()
+      .filter((guest) => guest.id !== guestId);
+
+    setGuests(updatedGuests);
+  }
 
   return (
     <Table.Row>
@@ -74,40 +77,16 @@ function GuestRow({ guest }) {
           {convertTagToTagName(`${guest.tags}`)}
         </Tag>
       </Cell>
-
-      <Modal>
-        <Menus.Menu>
-          <Menus.Toggle id={`${guest.id}`} />
-          <Menus.List id={`${guest.id}`}>
-            <Menus.Button
-              icon={<HiMiniPencilSquare />}
-              onClick={() => {
-                console.log("updating");
-              }}
-            >
-              {t("guestTableActionUpdate")}
-            </Menus.Button>
-
-            <Modal.Open opens="delete">
-              <Menus.Button icon={<HiTrash />}>
-                {t("guestTableActionDelete")}
-              </Menus.Button>
-            </Modal.Open>
-          </Menus.List>
-        </Menus.Menu>
-
-        <Modal.Window name="delete">
-          <ConfirmDelete
-            resourceName={t("deleteGuestConfirmResource")}
-            disabled={isDeleting}
-            onConfirm={() => {
-              deleteGuestById({ guestId: guest.id });
-            }}
-          />
-        </Modal.Window>
-      </Modal>
+      <Cell>
+        <HiTrash
+          color="red"
+          cursor={"pointer"}
+          size={"24px"}
+          onClick={() => handleDeleteGuest(guest.id)}
+        />
+      </Cell>
     </Table.Row>
   );
 }
 
-export default GuestRow;
+export default AddGuestTableRow;

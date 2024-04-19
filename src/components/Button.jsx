@@ -43,7 +43,7 @@ const variations = {
     background-color: var(--color-red-700);
 
     &:hover {
-      background-color: var(--color-red-100);
+      background-color: var(--color-red-300);
     }
   `,
   excel: css`

@@ -44,5 +44,7 @@
   "deleteGuestConfirmResource": "khách mời",
   "deleteGuestConfirmMessage": "Bạn chắc chắn muốn xoá resource này?",
   "isInvited": "Đã mời",
-  "notInvited": "Chưa mời"
+  "notInvited": "Chưa mời",
+  "updateSuccessfullyMessage": "Cập nhật thành công.",
+  "deleteSuccessfullyMessage": "Xoá thành công."
 }

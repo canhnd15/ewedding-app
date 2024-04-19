@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledCheckbox = styled.div`
   display: flex;
@@ -24,7 +24,14 @@ const StyledCheckbox = styled.div`
   }
 `;
 
-function Checkbox({ checked, onChange, disabled = false, id, children }) {
+function Checkbox({
+  checked,
+  onChange,
+  fontColor,
+  disabled = false,
+  id,
+  children,
+}) {
   return (
     <StyledCheckbox>
       <input

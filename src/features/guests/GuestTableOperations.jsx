@@ -2,6 +2,7 @@ import TableOperations from "../../components/TableOperations";
 import Filter from "../../components/Filter";
 import { useTranslation } from "react-i18next";
 import {
+  ALL_OPTION,
   COLLEAGUES_TAG,
   FAMILY_TAG,
   FRIEND_TAG,
@@ -21,6 +22,7 @@ function GuestTableOperations() {
         <Filter
           filterField="invited"
           options={[
+            { value: ALL_OPTION, label: `${t("guestFilterAll")}` },
             { value: INVITED, label: `${t("isInvited")}` },
             { value: NOT_INVITED, label: `${t("notInvited")}` },
           ]}
@@ -30,7 +32,7 @@ function GuestTableOperations() {
         <Filter
           filterField="tags"
           options={[
-            { value: "all", label: `${t("guestFilterAll")}` },
+            { value: ALL_OPTION, label: `${t("guestFilterAll")}` },
             { value: FRIEND_TAG, label: `${t("guestFilterFriend")}` },
             { value: FAMILY_TAG, label: `${t("guestFilterFamily")}` },
             { value: COLLEAGUES_TAG, label: `${t("guestFilterColleague")}` },

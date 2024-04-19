@@ -8,12 +8,12 @@ import { useUser } from "../authentication/useUser";
 import { useForm } from "react-hook-form";
 import { useFileUpload } from "./useFileUpload";
 import { useState } from "react";
-import { useInsertGuests } from "./useInsertGuests";
+import { useInsertGuestsByFile } from "./useInsertGuests";
 
 function UploadGuestForm({ onCloseModal }) {
   const { t } = useTranslation();
   const { user, isLoading: isLoadingUser } = useUser();
-  const { insertGuests } = useInsertGuests();
+  const { insertGuestsByFile } = useInsertGuestsByFile();
   const { uploadFile, isUploading } = useFileUpload();
   const { register, handleSubmit, reset } = useForm();
   const [guests, setGuests] = useState([]);
@@ -31,7 +31,7 @@ function UploadGuestForm({ onCloseModal }) {
             onCloseModal?.();
 
             const uploadedGuests = convertToGuestsJson(guests);
-            insertGuests({ guests: uploadedGuests, userId: user.id });
+            insertGuestsByFile({ guests: uploadedGuests, userId: user.id });
           },
         }
       );

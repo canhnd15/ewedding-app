@@ -24,6 +24,7 @@ function Guests() {
     familyCount,
     colleaguesCount,
     relativesCount,
+    othersCount,
   } = useCountGuests(user.id);
 
   const counterInfo = {
@@ -33,6 +34,7 @@ function Guests() {
     familyCount: familyCount,
     colleaguesCount: colleaguesCount,
     relativesCount: relativesCount,
+    othersCount: othersCount,
   };
 
   if (isLoadingUser && isLoadingGuestCounters) return <Spinner />;
@@ -42,10 +44,16 @@ function Guests() {
       {!isLoadingUser && !isLoadingGuestCounters && (
         <>
           <Row type="horizontal">
-            <Heading>
-              {t("guestScreenHeader")}
-              <HeadingSpan color="red">{total}</HeadingSpan>
-            </Heading>
+            <RowOfBlocks type="horizontal">
+              <Heading as={"h2"}>
+                {t("guestScreenHeader")}
+                <HeadingSpan color="red">{total}</HeadingSpan>
+              </Heading>
+              <Heading as={"h2"}>
+                | ĐÃ MỜI:
+                <HeadingSpan color="red">{total}</HeadingSpan>
+              </Heading>
+            </RowOfBlocks>
             <GuestFileActions />
           </Row>
           <Row>

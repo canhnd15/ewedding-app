@@ -2,6 +2,8 @@ import { SUPABASE_URL } from "../services/supabase";
 
 export const PAGE_SIZE = 10;
 
+export const ALL_OPTION = "all";
+
 export const FRIEND_TAG = "FRIEND";
 export const COLLEAGUES_TAG = "COLLEAGUES";
 export const FAMILY_TAG = "FAMILY";

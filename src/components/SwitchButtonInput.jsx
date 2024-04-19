@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { useUpdateInvited } from "../features/guests/useUpdateInvited";
 
 // Styled components
 const Label = styled.label`
@@ -44,26 +42,17 @@ const Input = styled.input`
   }
 `;
 
-function SwitchButton({ currentInvitedStatus, guestId }) {
-  const { isUpdating, updateInvitedStatus } = useUpdateInvited();
-  const [checked, setChecked] = useState(currentInvitedStatus);
-
+function SwitchButtonInput({ setIsInvited }) {
   const handleChange = (e) => {
-    setChecked(e.target.checked);
-    if (guestId) updateInvitedStatus({ guestId, currentInvitedStatus });
+    setIsInvited(e.target.checked);
   };
 
   return (
     <Label>
-      <Input
-        disabled={isUpdating}
-        checked={checked}
-        type="checkbox"
-        onChange={handleChange}
-      />
+      <Input type="checkbox" onChange={handleChange} />
       <Switch />
     </Label>
   );
 }
 
-export default SwitchButton;
+export default SwitchButtonInput;
