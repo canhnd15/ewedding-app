@@ -29,7 +29,7 @@ export function useInsertGuestsManually() {
   const { mutate: insertGuestsManually, isLoading: isCreating } = useMutation({
     mutationFn: ({ guests }) => batchInsertGuestsManually(guests),
     onSuccess: () => {
-      toast.success(t("uploadFileSuccessMessage"));
+      toast.success(t("updateGuestsSuccessMessage"));
       queryClient.invalidateQueries({ queryKey: ["guests"] });
     },
     onError: (err) => toast.error(err.message),

@@ -5,14 +5,14 @@ import { updateInvitedStatusApi } from "../../services/apiGuests";
 
 export function useUpdateInvited() {
   const { t } = useTranslation();
-  //   const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   const { mutate: updateInvitedStatus, isLoading: isUpdating } = useMutation({
     mutationFn: ({ guestId, currentInvitedStatus }) =>
       updateInvitedStatusApi(guestId, currentInvitedStatus),
     onSuccess: () => {
       toast.success(t("updateSuccessfullyMessage"));
-      //   queryClient.invalidateQueries({ queryKey: ["guests"] });
+      queryClient.invalidateQueries({ queryKey: ["guests"] });
     },
     onError: (err) => toast.error(err.message),
   });

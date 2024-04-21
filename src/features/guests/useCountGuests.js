@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { countGuestsByTag } from "../../services/apiGuests";
+import { countGuestsApi } from "../../services/apiGuests";
 
 export function useCountGuests(userId) {
   const {
@@ -10,12 +10,14 @@ export function useCountGuests(userId) {
       colleaguesCount,
       relativesCount,
       othersCount,
+      invitedCount,
+      notInvitedCount,
       total,
     } = {},
     error,
   } = useQuery({
     queryKey: ["guests"],
-    queryFn: () => countGuestsByTag(userId),
+    queryFn: () => countGuestsApi(userId),
   });
 
   return {
@@ -24,6 +26,8 @@ export function useCountGuests(userId) {
     colleaguesCount,
     relativesCount,
     othersCount,
+    invitedCount,
+    notInvitedCount,
     total,
     isLoading,
     error,

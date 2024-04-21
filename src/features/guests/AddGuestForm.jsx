@@ -7,27 +7,29 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Checkbox from "../../components/Checkbox";
 import Table from "../../components/Table";
-import GuestRow from "./GuestRow";
 import Pagination from "../../components/Pagination";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import SwitchButton from "../../components/SwitchButton";
-import SwitchButtonInput from "../../components/SwitchButtonInput";
-import { FAMILY_TAG } from "../../utils/constants";
+import {
+  COLLEAGUES_TAG,
+  FAMILY_TAG,
+  FRIEND_TAG,
+  OTHERS_TAG,
+  RELATIVES_TAG,
+} from "../../utils/constants";
 import AddGuestTableRow from "./AddGuestTableRow";
-import ConfirmDelete from "../../components/ConfirmDelete";
-import toast from "react-hot-toast";
-import RowOfBlocks from "../../components/RowOfBlocks";
+import { useInsertGuestsManually } from "./useInsertGuests";
+import { useUser } from "../authentication/useUser";
 
 function AddGuestForm({ onCloseModal }) {
   const { t } = useTranslation();
-  const [guests, setGuests] = useState([]);
-  const [tags, setTags] = useState(FAMILY_TAG);
-  const [isInvited, setIsInvited] = useState(false);
+  const { user } = useUser();
+  const { isCreating, insertGuestsManually } = useInsertGuestsManually();
 
-  const isCreating = false;
-  const isEditing = false;
-  const isWorking = isCreating || isEditing;
+  const [displayedGuests, setDisplayedGuests] = useState([]);
+  const [savedGuests, setSavedGuests] = useState([]);
+  const [tags, setTags] = useState(null);
+  const [isInvited, setIsInvited] = useState(false);
 
   const { register, handleSubmit, formState } = useForm({
     defaultValues: {},
@@ -35,14 +37,36 @@ function AddGuestForm({ onCloseModal }) {
   const { errors } = formState;
 
   function onSubmit(data) {
-    const currId = guests.length + 1;
-    const newGuest = { ...data, invited: true, tags: FAMILY_TAG, id: currId };
+    const currId = displayedGuests.length + 1;
+    const newDisplayedGuest = {
+      ...data,
+      invited: isInvited,
+      tags: tags,
+      id: currId,
+    };
+    setDisplayedGuests((prevGuests) => [
+      ...prevGuests,
+      { ...newDisplayedGuest },
+    ]);
 
-    setGuests((prevGuests) => [...prevGuests, { ...newGuest }]);
+    const newSavedGuest = {
+      name: data.name,
+      phone: data.phone !== "" ? data.phone : null,
+      gave_money: data.gaveMoney !== "" ? data.gaveMoney : null,
+      notes: data.notes,
+      tags: tags,
+      is_invited: isInvited,
+      user_id: user.id,
+    };
+    setSavedGuests((prevGuests) => [...prevGuests, { ...newSavedGuest }]);
   }
 
   function onError(errors) {
     console.log(errors);
+  }
+
+  function handleSaveGuestsManually() {
+    insertGuestsManually({ guests: savedGuests, userId: user.id });
   }
 
   return (
@@ -58,7 +82,7 @@ function AddGuestForm({ onCloseModal }) {
           <Input
             type="text"
             id="name"
-            disabled={isWorking}
+            disabled={isCreating}
             {...register("name", {
               required: `${t("requireField")}`,
             })}
@@ -68,7 +92,7 @@ function AddGuestForm({ onCloseModal }) {
           <Input
             type="number"
             id="gaveMoney"
-            disabled={isWorking}
+            disabled={isCreating}
             {...register("gaveMoney")}
           />
         </FormRow>
@@ -76,7 +100,7 @@ function AddGuestForm({ onCloseModal }) {
           <Input
             type="text"
             id="notes"
-            disabled={isWorking}
+            disabled={isCreating}
             {...register("notes")}
           />
         </FormRow>
@@ -84,36 +108,79 @@ function AddGuestForm({ onCloseModal }) {
           <Input
             type="text"
             id="phone"
-            disabled={isWorking}
+            disabled={isCreating}
             {...register("phone")}
           />
         </FormRow>
         <Input
           type="hidden"
           id="invited"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("invited")}
         />
 
-        <FormRow label={t("isInvited")}>
-          <SwitchButtonInput setIsInvited={(e) => setIsInvited(e)} />
-        </FormRow>
+        <FormRowCheckBox label={t("isInvited")}>
+          <Checkbox
+            type="text"
+            id="tags"
+            checked={isInvited === true ? true : false}
+            onChange={(e) => {
+              if (e.target.checked === true) setIsInvited(true);
+              else setIsInvited(false);
+            }}
+          />
+        </FormRowCheckBox>
 
         <FormRowCheckBox label={t("guestInviteMoreFormTags")}>
           <>
-            <Checkbox type="text" id="phone" {...register("tags")}>
+            <Checkbox
+              type="text"
+              id="tags"
+              checked={tags === FRIEND_TAG ? true : false}
+              onChange={(e) => {
+                if (e.target.checked === true) setTags(FRIEND_TAG);
+              }}
+            >
               {t("guestFilterFriend")}
             </Checkbox>
-            <Checkbox type="text" onChange={() => {}} id="breakfast">
+            <Checkbox
+              type="text"
+              id="tags"
+              checked={tags === FAMILY_TAG ? true : false}
+              onChange={(e) => {
+                if (e.target.checked === true) setTags(FAMILY_TAG);
+              }}
+            >
               {t("guestFilterFamily")}
             </Checkbox>
-            <Checkbox onChange={() => {}} id="breakfast">
+            <Checkbox
+              type="tex"
+              id="tags"
+              checked={tags === COLLEAGUES_TAG ? true : false}
+              onChange={(e) => {
+                if (e.target.checked === true) setTags(COLLEAGUES_TAG);
+              }}
+            >
               {t("guestFilterColleague")}
             </Checkbox>
-            <Checkbox onChange={() => {}} id="breakfast">
+            <Checkbox
+              type="tex"
+              id="tags"
+              checked={tags === RELATIVES_TAG ? true : false}
+              onChange={(e) => {
+                if (e.target.checked === true) setTags(RELATIVES_TAG);
+              }}
+            >
               {t("guestFilterRelatives")}
             </Checkbox>
-            <Checkbox onChange={() => {}} id="breakfast">
+            <Checkbox
+              type="tex"
+              id="tags"
+              checked={tags === OTHERS_TAG ? true : false}
+              onChange={(e) => {
+                if (e.target.checked === true) setTags(OTHERS_TAG);
+              }}
+            >
               {t("guestFilterOthers")}
             </Checkbox>
           </>
@@ -127,12 +194,12 @@ function AddGuestForm({ onCloseModal }) {
           >
             {t("guestInviteMoreFormClearBtn")}
           </Button>
-          <Button disabled={isWorking}>
+          <Button disabled={isCreating}>
             {t("guestInviteMoreFormInviteBtn")}
           </Button>
         </FormRow>
 
-        <Table columns="150px 120px 100px 100px 50px 50px 20px">
+        <Table columns="130px 90px 100px 100px 70px 100px 30px">
           <Table.Header>
             <div>{t("guestTableHeaderName")}</div>
             <div>{t("guestTableHeaderGaveMoney")}</div>
@@ -144,23 +211,26 @@ function AddGuestForm({ onCloseModal }) {
           </Table.Header>
 
           <Table.Body
-            data={guests}
+            data={displayedGuests}
             render={(guest) => (
               <AddGuestTableRow
                 key={guest.id}
                 guest={guest}
-                guests={guests}
-                setGuests={setGuests}
+                guests={displayedGuests}
+                setGuests={setDisplayedGuests}
               />
             )}
           />
           <Table.Footer>
-            <Pagination count={guests.length} />
+            <Pagination count={displayedGuests.length} />
           </Table.Footer>
         </Table>
       </Form>
 
       <FormRow>
+        <div style={{ color: "red", float: "left" }}>
+          Mời thêm tối thiểu 1 khách để lưu
+        </div>
         <Button
           variation="secondary"
           type="reset"
@@ -168,7 +238,12 @@ function AddGuestForm({ onCloseModal }) {
         >
           {t("guestInviteMoreFormCancelBtn")}
         </Button>
-        <Button disabled={isWorking}>{t("guestInviteMoreFormSaveBtn")}</Button>
+        <Button
+          disabled={isCreating || displayedGuests.length === 0}
+          onClick={handleSaveGuestsManually}
+        >
+          {t("guestInviteMoreFormSaveBtn")}
+        </Button>
       </FormRow>
     </>
   );

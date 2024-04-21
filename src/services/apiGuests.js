@@ -3,6 +3,7 @@ import {
   COLLEAGUES_TAG,
   FAMILY_TAG,
   FRIEND_TAG,
+  INVITED,
   OTHERS_TAG,
   PAGE_SIZE,
   RELATIVES_TAG,
@@ -35,10 +36,10 @@ export async function getGuests({ filterTags, filterInvited, page, userId }) {
   return { guests, count };
 }
 
-export async function countGuestsByTag(userId) {
+export async function countGuestsApi(userId) {
   let queryCountGuests = supabase
     .from("guests")
-    .select("id, created_at, name, phone, gave_money, notes, tags", {
+    .select("tags, is_invited", {
       count: "exact",
     })
     .eq("user_id", userId)
@@ -76,6 +77,14 @@ export async function countGuestsByTag(userId) {
     guest.tags.includes(OTHERS_TAG)
   ).length;
 
+  const invitedCount = counts.filter(
+    (guest) => guest.is_invited === true
+  ).length;
+
+  const notInvitedCount = counts.filter(
+    (guest) => guest.is_invited === false
+  ).length;
+
   const total = counts.length;
 
   return {
@@ -84,6 +93,8 @@ export async function countGuestsByTag(userId) {
     colleaguesCount,
     relativesCount,
     othersCount,
+    invitedCount,
+    notInvitedCount,
     total,
   };
 }
@@ -109,7 +120,7 @@ export async function batchInsertGuestsManually(guests) {
   const { data, error } = await supabase.from("guests").insert(guests).select();
 
   if (error) {
-    throw new Error("Error when inserting new guest records.");
+    throw new Error(error.message);
   }
   return { data, error };
 }

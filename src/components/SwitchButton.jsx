@@ -51,6 +51,7 @@ function SwitchButton({ currentInvitedStatus, guestId }) {
   const handleChange = (e) => {
     setChecked(e.target.checked);
     if (guestId) updateInvitedStatus({ guestId, currentInvitedStatus });
+    else currentInvitedStatus = !currentInvitedStatus;
   };
 
   return (

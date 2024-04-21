@@ -39,6 +39,7 @@
   "noDataToShow": "No data to show at the moment",
   "uploadGuestsFileNotes": "After uploading, data will be deleted and updated.",
   "uploadFileSuccessMessage": "Upload file successfully.",
+  "updateGuestsSuccessMessage": "Update list of guests successfully.",
   "guestTableActionUpdate": "Update",
   "guestTableActionDelete": "Delete",
   "deleteGuestConfirmResource": "guest",

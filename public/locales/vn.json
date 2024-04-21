@@ -39,6 +39,7 @@
   "noDataToShow": "Không có dữ liệu hiển thị.",
   "uploadGuestsFileNotes": "Khi tải file mới, dữ liệu sẽ được xoá và cập nhật lại.",
   "uploadFileSuccessMessage": "Tải danh sách khách mời thành công.",
+  "updateGuestsSuccessMessage": "Cập nhật danh sách khách mời thành công.",
   "guestTableActionUpdate": "Cập nhật",
   "guestTableActionDelete": "Xoá",
   "deleteGuestConfirmResource": "khách mời",

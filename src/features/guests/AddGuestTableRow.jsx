@@ -26,6 +26,12 @@ const Cell = styled.div`
   }
 `;
 
+const TruncatedText = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 function AddGuestTableRow({ guest, guests, setGuests }) {
   const { t } = useTranslation();
 
@@ -57,20 +63,22 @@ function AddGuestTableRow({ guest, guests, setGuests }) {
     <Table.Row>
       <Cell>{guest.name}</Cell>
       <Cell>
-        {Number(guest.gave_money) === 0 ? (
+        {Number(guest.gaveMoney) === 0 ? (
           <span>&mdash;</span>
         ) : (
-          formatCurrency(guest.gave_money)
+          `${formatCurrency(`${guest.gaveMoney}`)}`
         )}
       </Cell>
-      <Cell>{guest.phone === null ? <span>&mdash;</span> : guest.phone}</Cell>
-      <Cell>{guest.notes === null ? <span>&mdash;</span> : guest.notes}</Cell>
+      <Cell>{guest.phone === "" ? <span>&mdash;</span> : guest.phone}</Cell>
       <Cell>
-        {guest.is_invited === false ? (
-          <SwitchButton currentInvitedStatus={false} guestId={guest.id} />
+        {guest.notes === "" ? (
+          <span>&mdash;</span>
         ) : (
-          <SwitchButton currentInvitedStatus={true} guestId={guest.id} />
+          <TruncatedText>{guest.notes}</TruncatedText>
         )}
+      </Cell>
+      <Cell>
+        <SwitchButton currentInvitedStatus={guest.invited} />
       </Cell>
       <Cell>
         <Tag type={convertToTags[`${guest.tags}`.toLowerCase()]}>
