@@ -10,7 +10,7 @@ import {
   RELATIVES_TAG,
 } from "../../utils/constants";
 import { useTranslation } from "react-i18next";
-import { HiTrash, HiEye, HiMiniPencilSquare } from "react-icons/hi2";
+import { HiTrash, HiMiniPencilSquare } from "react-icons/hi2";
 import Modal from "../../components/Modal";
 import ConfirmDelete from "../../components/ConfirmDelete";
 import Menus from "../../components/Menus";

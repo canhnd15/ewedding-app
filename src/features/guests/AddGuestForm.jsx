@@ -67,6 +67,10 @@ function AddGuestForm({ onCloseModal }) {
 
   function handleSaveGuestsManually() {
     insertGuestsManually({ guests: savedGuests, userId: user.id });
+    if (!isCreating) {
+      setDisplayedGuests([]);
+      setSavedGuests([]);
+    }
   }
 
   return (
@@ -228,9 +232,6 @@ function AddGuestForm({ onCloseModal }) {
       </Form>
 
       <FormRow>
-        <div style={{ color: "red", float: "left" }}>
-          Mời thêm tối thiểu 1 khách để lưu
-        </div>
         <Button
           variation="secondary"
           type="reset"

@@ -8,8 +8,10 @@ const StyledInput = styled.input`
   box-shadow: var(--shadow-sm);
 `;
 
-function Input({ placeholder }) {
-  return <StyledInput placeholder={placeholder}></StyledInput>;
+function Input({ placeholder, onChange }) {
+  return (
+    <StyledInput placeholder={placeholder} onChange={onChange}></StyledInput>
+  );
 }
 
 export default Input;

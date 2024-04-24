@@ -28,3 +28,23 @@ export const formatCurrency = (value) =>
   new Intl.NumberFormat("en", { style: "currency", currency: "VND" }).format(
     value
   );
+
+export const replaceTextUsingTemplate = (temp, replacements) => {
+  Object.keys(replacements).forEach((key) => {
+    temp = temp.replace(`{{${key}}}`, replacements[key]);
+  });
+
+  return temp;
+};
+
+export const convertArrayToJsonObj = (arrayOfObjects) => {
+  const resultObject = arrayOfObjects.reduce((acc, obj) => {
+    // Merge each object in the array into the accumulator object
+    Object.keys(obj).forEach((key) => {
+      acc[key] = obj[key];
+    });
+    return acc;
+  }, {});
+
+  return resultObject;
+};

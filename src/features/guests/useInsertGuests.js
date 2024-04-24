@@ -26,7 +26,11 @@ export function useInsertGuestsManually() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const { mutate: insertGuestsManually, isLoading: isCreating } = useMutation({
+  const {
+    mutate: insertGuestsManually,
+    isLoading: isCreating,
+    status,
+  } = useMutation({
     mutationFn: ({ guests }) => batchInsertGuestsManually(guests),
     onSuccess: () => {
       toast.success(t("updateGuestsSuccessMessage"));
@@ -35,5 +39,5 @@ export function useInsertGuestsManually() {
     onError: (err) => toast.error(err.message),
   });
 
-  return { isCreating, insertGuestsManually };
+  return { isCreating, insertGuestsManually, status };
 }

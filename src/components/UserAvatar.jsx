@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useUser } from "../features/authentication/useUser";
 
 const StyledUserAvatar = styled.div`
   display: flex;
@@ -21,10 +22,19 @@ const Avatar = styled.img`
 `;
 
 function UserAvatar() {
+  const { user, isLoading: isLoadingUser } = useUser();
+
+  const getUserName = () => {
+    if (!isLoadingUser) {
+      const atIndex = user.email.indexOf("@");
+      return user.email.substring(0, atIndex);
+    }
+  };
+
   return (
     <StyledUserAvatar>
       <Avatar src={"default-avatar.jpg"} alt={"default avt"} />
-      <span>CanhND</span>
+      <span>{getUserName()}</span>
     </StyledUserAvatar>
   );
 }

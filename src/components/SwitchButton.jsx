@@ -33,7 +33,7 @@ const Switch = styled.div`
 
 const Input = styled.input`
   opacity: 0;
-  position: absolute;
+  position: fixed;
 
   &:checked + ${Switch} {
     background: var(--color-blue-700);
@@ -44,7 +44,7 @@ const Input = styled.input`
   }
 `;
 
-function SwitchButton({ currentInvitedStatus, guestId }) {
+function SwitchButton({ currentInvitedStatus, guestId, text }) {
   const { isUpdating, updateInvitedStatus } = useUpdateInvited();
   const [checked, setChecked] = useState(currentInvitedStatus);
 
@@ -62,7 +62,7 @@ function SwitchButton({ currentInvitedStatus, guestId }) {
         type="checkbox"
         onChange={handleChange}
       />
-      <Switch />
+      {text !== null ? <Switch>{text}</Switch> : <Switch />}
     </Label>
   );
 }

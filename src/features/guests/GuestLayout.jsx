@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import GuestBlocks from "./GuestBlocks";
 
-const StyledDashboardLayout = styled.div`
+const StyledGuestLayout = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto auto auto;
@@ -10,9 +10,9 @@ const StyledDashboardLayout = styled.div`
 
 function GuestLayout({ counterInfo }) {
   return (
-    <StyledDashboardLayout>
+    <StyledGuestLayout>
       <GuestBlocks counterInfo={counterInfo} />
-    </StyledDashboardLayout>
+    </StyledGuestLayout>
   );
 }
 

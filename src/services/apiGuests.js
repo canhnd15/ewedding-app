@@ -3,12 +3,12 @@ import {
   COLLEAGUES_TAG,
   FAMILY_TAG,
   FRIEND_TAG,
-  INVITED,
   OTHERS_TAG,
   PAGE_SIZE,
   RELATIVES_TAG,
 } from "../utils/constants";
 
+// GET LIST OF GUEST BY USER_ID WITH FILTER VALUES
 export async function getGuests({ filterTags, filterInvited, page, userId }) {
   let query = supabase
     .from("guests")
@@ -36,6 +36,7 @@ export async function getGuests({ filterTags, filterInvited, page, userId }) {
   return { guests, count };
 }
 
+// COUNT NUMBER OF GUESTS VIA TAG AND INVITED STATUS
 export async function countGuestsApi(userId) {
   let queryCountGuests = supabase
     .from("guests")
@@ -99,6 +100,7 @@ export async function countGuestsApi(userId) {
   };
 }
 
+// UPLOAD LIST OF GUESTS VIA A TEMPLATE FILE
 export async function batchInsertGuestsByFile(guests, userId) {
   const { error: deleteError } = await supabase
     .from("guests")
@@ -116,6 +118,7 @@ export async function batchInsertGuestsByFile(guests, userId) {
   return { data, error };
 }
 
+// ADD LIST OF GUESTS WHEN USER INPUT FROM GUEST FORM
 export async function batchInsertGuestsManually(guests) {
   const { data, error } = await supabase.from("guests").insert(guests).select();
 
@@ -125,6 +128,7 @@ export async function batchInsertGuestsManually(guests) {
   return { data, error };
 }
 
+// UPDATE GUEST'S INVITED STATUS -> TRUE: INVITED | FALSE: UNINVITED
 export async function updateInvitedStatusApi(guestId, currentInvitedStatus) {
   const { data, error } = await supabase
     .from("guests")
@@ -137,8 +141,21 @@ export async function updateInvitedStatusApi(guestId, currentInvitedStatus) {
   return { data, error };
 }
 
+// DELETE A GUEST BY GUEST_ID
 export async function deleteGuestByIdApi(guestId) {
   const { error } = await supabase.from("guests").delete().eq("id", guestId);
 
   if (error) throw new Error("Error when deleting guest.");
+}
+
+// SEARCH
+export async function searchGuestsApi(searchValue) {
+  let { data: guests, error } = await supabase
+    .from("guests")
+    .select("*")
+    .like("name", `%${searchValue}%`);
+
+  if (error) throw new Error("Error when searching...");
+
+  return { guests, error };
 }
