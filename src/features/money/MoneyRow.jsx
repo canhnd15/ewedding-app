@@ -9,10 +9,42 @@ import Modal from "../../components/Modal";
 import Menus from "../../components/Menus";
 import ConfirmDelete from "../../components/ConfirmDelete";
 import SwitchButton from "../../components/SwitchButton";
+import {
+  INVITATION_TYPE_BANK_TRANSFER,
+  INVITATION_TYPE_CASH,
+  INVITATION_TYPE_NONE,
+  INVITATION_TYPE_OTHER,
+} from "../../utils/constants";
+import { useUpdateInvitationType } from "./useUpdateInvitationType";
+import MoneyTypeSelect from "../../components/MoneyTypeSelect";
 
 function MoneyRow({ guest }) {
   const { t } = useTranslation();
   const { deleteGuestById, isDeleting } = useDeleteGuest();
+  const { updateInvitationType, isUpdating } = useUpdateInvitationType();
+
+  const options = [
+    {
+      value: INVITATION_TYPE_NONE,
+      label: t("invitationTypeNone"),
+    },
+    {
+      value: INVITATION_TYPE_CASH,
+      label: t("invitationTypeCash"),
+    },
+    {
+      value: INVITATION_TYPE_BANK_TRANSFER,
+      label: t("invitationTypeBank"),
+    },
+    {
+      value: INVITATION_TYPE_OTHER,
+      label: t("invitationTypeOther"),
+    },
+  ];
+
+  const doUpdateInvitationType = (e) => {
+    updateInvitationType({ guestId: guest.id, invitationType: e.target.value });
+  };
 
   return (
     <Table.Row>
@@ -39,14 +71,13 @@ function MoneyRow({ guest }) {
         )}
       </Cell>
       <Cell>
-        <select>
-          <option>
-            <span>&mdash;</span>
-          </option>
-          <option>Phong bi</option>
-          <option>Chuyen khoan</option>
-        </select>
-        {/* {guest.type} */}
+        <MoneyTypeSelect
+          options={options}
+          onChange={doUpdateInvitationType}
+          disabled={isUpdating}
+          value={guest.type}
+          color={guest.type === null ? INVITATION_TYPE_NONE : guest.type}
+        />
       </Cell>
       <Cell>{guest.notes === null ? <span>&mdash;</span> : guest.notes}</Cell>
 
@@ -55,7 +86,7 @@ function MoneyRow({ guest }) {
           <Menus.Toggle id={`${guest.id}`} />
           <Menus.List id={`${guest.id}`}>
             <Menus.Button
-              icon={<HiMiniPencilSquare />}
+              icon={<HiMiniPencilSquare color="blue" />}
               onClick={() => {
                 console.log("updating");
               }}
@@ -64,7 +95,7 @@ function MoneyRow({ guest }) {
             </Menus.Button>
 
             <Modal.Open opens="delete">
-              <Menus.Button icon={<HiTrash />}>
+              <Menus.Button icon={<HiTrash color="red" />}>
                 {t("guestTableActionDelete")}
               </Menus.Button>
             </Modal.Open>

@@ -47,6 +47,7 @@ function UploadGuestForm({ onCloseModal }) {
         gave_money: guest.GaveMoney,
         notes: guest.Notes,
         tags: guest.Tag,
+        updated_at: new Date().toISOString(),
         user_id: user.id,
       };
       convertedGuests.push(newGuest);

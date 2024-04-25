@@ -80,7 +80,7 @@ function GuestRow({ guest }) {
           <Menus.Toggle id={`${guest.id}`} />
           <Menus.List id={`${guest.id}`}>
             <Menus.Button
-              icon={<HiMiniPencilSquare />}
+              icon={<HiMiniPencilSquare color="blue" />}
               onClick={() => {
                 console.log("updating");
               }}
@@ -89,7 +89,7 @@ function GuestRow({ guest }) {
             </Menus.Button>
 
             <Modal.Open opens="delete">
-              <Menus.Button icon={<HiTrash />}>
+              <Menus.Button icon={<HiTrash color="red" />}>
                 {t("guestTableActionDelete")}
               </Menus.Button>
             </Modal.Open>

@@ -32,7 +32,11 @@ function AppLayout() {
   return (
     <StyledAppLayout>
       <Header />
-      {open ? <Sidebar setOpen={setOpen} /> : <MiniSidebar setOpen={setOpen} />}
+      {open ? (
+        <Sidebar setOpen={setOpen} open={open} />
+      ) : (
+        <MiniSidebar setOpen={setOpen} open={open} />
+      )}
       <Main>
         <Container>
           <Outlet />

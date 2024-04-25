@@ -41,7 +41,7 @@ function MoneyTopTableRow({ info, t }) {
         {info.key === "money" ? formatCurrency(info.others) : info.others}
       </Cell>
       <Cell>
-        {info.key === "money" ? formatCurrency(info.others) : info.others}
+        {info.key === "money" ? formatCurrency(info.total) : info.total}
       </Cell>
     </Table.Row>
   );

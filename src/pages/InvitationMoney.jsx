@@ -25,27 +25,25 @@ function InvitationMoney() {
   if (isLoadingUser) return <Spinner />;
 
   return (
-    <>
-      <Row>
-        <Heading>TIỀN MỪNG</Heading>
-        <MoneyTopTable />
-        <RowOfBlocks type="horizontal">
-          <Input
-            onChange={(e) => {
-              console.log(e.target.value);
-            }}
-            placeholder={`${t("guestSearchPlaceholder")}`}
-          />
-          <Button variation="excel">
-            <InnerButton>
-              {t("guestDownloadBtn")}
-              <FaDownload size={"18px"} />
-            </InnerButton>
-          </Button>
-        </RowOfBlocks>
-        <MoneyTable userId={user.id} />
-      </Row>
-    </>
+    <Row>
+      {/* <Heading>TIỀN MỪNG</Heading> */}
+      <MoneyTopTable />
+      <RowOfBlocks type="horizontal">
+        <Input
+          onChange={(e) => {
+            console.log(e.target.value);
+          }}
+          placeholder={`${t("guestSearchPlaceholder")}`}
+        />
+        <Button variation="excel">
+          <InnerButton>
+            {t("guestDownloadBtn")}
+            <FaDownload size={"18px"} />
+          </InnerButton>
+        </Button>
+      </RowOfBlocks>
+      <MoneyTable userId={user.id} />
+    </Row>
   );
 }
 

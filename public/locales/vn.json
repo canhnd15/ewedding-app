@@ -61,5 +61,9 @@
   "btnPrev": "Trước",
   "moneyTableHeaderGuest": "Khách mời (người)",
   "moneyTableHeaderMoney": "Tiền mừng (VND)",
-  "total": "Tổng"
+  "total": "Tổng",
+  "invitationTypeNone": "Chưa mừng",
+  "invitationTypeCash": "Phong bì",
+  "invitationTypeBank": "Chuyển khoản",
+  "invitationTypeOther": "Khác"
 }

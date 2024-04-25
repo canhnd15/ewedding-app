@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Logo from "./Logo";
 import MainNav from "./MainNav";
 import { RiMenuFoldLine } from "react-icons/ri";
-import { IoIosArrowBack } from "react-icons/io";
 
 const StyledSidebar = styled.aside`
   background-color: var(--color-grey-100);

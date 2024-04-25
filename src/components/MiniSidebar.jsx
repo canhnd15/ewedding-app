@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { RiMenuUnfoldLine } from "react-icons/ri";
+import MiniMainNav from "./MiniMainNav";
 
 const StyledMiniSidebar = styled.aside`
   background-color: var(--color-grey-100);
@@ -21,6 +22,8 @@ function MiniSidebar({ setOpen }) {
         cursor={"pointer"}
         onClick={() => setOpen(true)}
       />
+
+      <MiniMainNav />
     </StyledMiniSidebar>
   );
 }

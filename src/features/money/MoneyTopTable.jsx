@@ -2,6 +2,9 @@ import styled from "styled-components";
 import Table from "../../components/Table";
 import { useTranslation } from "react-i18next";
 import MoneyTopTableRow from "./MoneyTopTableRow";
+import { useMoneyTopTable } from "./useMoneyTopTable";
+import { useUser } from "../authentication/useUser";
+import Spinner from "../../components/Spinner";
 
 const StyledMoneyTopLayout = styled.div`
   display: grid;
@@ -30,6 +33,10 @@ const data = [
 
 function MoneyTopTable() {
   const { t } = useTranslation();
+  const { user, isLoading: isLoadingUser } = useUser();
+  const { result, isLoading: isLoadingData, error } = useMoneyTopTable(user.id);
+
+  if (isLoadingUser || isLoadingData) return <Spinner />;
 
   return (
     <StyledMoneyTopLayout>
@@ -44,7 +51,7 @@ function MoneyTopTable() {
           <div>{t("total")}</div>
         </Table.Header>
         <Table.Body
-          data={data}
+          data={result}
           render={(info) => (
             <MoneyTopTableRow key={info.key} info={info} t={t} />
           )}

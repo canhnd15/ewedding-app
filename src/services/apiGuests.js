@@ -15,7 +15,8 @@ export async function getGuests({ filterTags, filterInvited, page, userId }) {
     .select("*", {
       count: "exact",
     })
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .order("updated_at", { ascending: false });
 
   if (filterTags) query = query.eq(filterTags.field, filterTags.value);
   if (filterInvited) query = query.eq(filterInvited.field, filterInvited.value);
@@ -132,7 +133,10 @@ export async function batchInsertGuestsManually(guests) {
 export async function updateInvitedStatusApi(guestId, currentInvitedStatus) {
   const { data, error } = await supabase
     .from("guests")
-    .update({ is_invited: !currentInvitedStatus })
+    .update({
+      is_invited: !currentInvitedStatus,
+      updated_at: new Date().toISOString(),
+    })
     .eq("id", guestId)
     .select();
 
@@ -148,6 +152,19 @@ export async function deleteGuestByIdApi(guestId) {
   if (error) throw new Error("Error when deleting guest.");
 }
 
+// UPDATE GUEST'S INVITATION METHOD (CASH, BANK_TRANSFER, OTHERS)
+export async function updateInvitationMoneyType(guestId, invitationType) {
+  const { data, error } = await supabase
+    .from("guests")
+    .update({ type: invitationType, updated_at: new Date().toISOString() })
+    .eq("id", guestId)
+    .select();
+
+  if (error) throw new Error("Error when updating invitation method.");
+
+  return { data, error };
+}
+
 // SEARCH
 export async function searchGuestsApi(searchValue) {
   let { data: guests, error } = await supabase
@@ -158,4 +175,108 @@ export async function searchGuestsApi(searchValue) {
   if (error) throw new Error("Error when searching...");
 
   return { guests, error };
+}
+
+export async function getSummaryMoneyAndGuestsApi(userId) {
+  let query = supabase
+    .from("guests")
+    .select("tags, take_money", {
+      count: "exact",
+    })
+    .eq("user_id", userId);
+
+  const { data, error } = await query;
+
+  if (error) {
+    throw new Error("Error when counting guests.");
+  }
+
+  const counter = data.reduce(
+    (counters, guest) => {
+      switch (guest.tags) {
+        case FRIEND_TAG:
+          counters.numberFriends += 1;
+          counters.moneyFriends += guest.take_money;
+          break;
+        case FAMILY_TAG:
+          counters.numberFamily += 1;
+          counters.moneyFamily += guest.take_money;
+          break;
+        case COLLEAGUES_TAG:
+          counters.numberColleagues += 1;
+          counters.moneyColleagues += guest.take_money;
+          break;
+        case RELATIVES_TAG:
+          counters.numberRelatives += 1;
+          counters.moneyRelatives += guest.take_money;
+          break;
+        case OTHERS_TAG:
+          counters.numberOthers += 1;
+          counters.moneyOthers += guest.take_money;
+          break;
+        default:
+          break;
+      }
+      return counters;
+    },
+    {
+      numberFriends: 0,
+      numberFamily: 0,
+      numberColleagues: 0,
+      numberRelatives: 0,
+      numberOthers: 0,
+      moneyFriends: 0,
+      moneyFamily: 0,
+      moneyColleagues: 0,
+      moneyRelatives: 0,
+      moneyOthers: 0,
+    }
+  );
+
+  const {
+    numberFriends,
+    numberFamily,
+    numberColleagues,
+    numberRelatives,
+    numberOthers,
+    moneyFriends,
+    moneyFamily,
+    moneyColleagues,
+    moneyRelatives,
+    moneyOthers,
+  } = counter;
+
+  let result = [];
+  result.push(
+    {
+      key: "guests",
+      family: numberFamily,
+      friend: numberFriends,
+      colleagues: numberColleagues,
+      relatives: numberRelatives,
+      others: numberOthers,
+      total:
+        numberFamily +
+        numberFriends +
+        numberColleagues +
+        numberRelatives +
+        numberOthers,
+    },
+    {
+      key: "money",
+      family: moneyFamily,
+      friend: moneyFriends,
+      colleagues: moneyColleagues,
+      relatives: moneyRelatives,
+      others: moneyOthers,
+      total:
+        moneyFamily +
+        moneyFriends +
+        moneyColleagues +
+        moneyRelatives +
+        moneyOthers,
+    }
+  );
+
+  return result;
 }

@@ -61,5 +61,9 @@
   "btnPrev": "Previous",
   "moneyTableHeaderGuest": "Guests (person)",
   "moneyTableHeaderMoney": "Money (VND)",
-  "total": "Total"
+  "total": "Total",
+  "invitationTypeNone": "None",
+  "invitationTypeCash": "Cash",
+  "invitationTypeBank": "Bank transfer",
+  "invitationTypeOther": "Other"
 }
