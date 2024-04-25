@@ -1,6 +1,9 @@
 import styled, { css } from "styled-components";
 
 const colors = {
+  DEFAULT: css`
+    color: var(--color-gray-300);
+  `,
   NONE: css`
     color: var(--color-red-700);
   `,

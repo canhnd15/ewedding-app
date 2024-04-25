@@ -1,7 +1,7 @@
 import Row from "../components/Row";
 import Heading from "../components/Heading";
 
-function InvitationCard() {
+function Card() {
   return (
     <>
       <Row type="horizontal">
@@ -11,4 +11,4 @@ function InvitationCard() {
   );
 }
 
-export default InvitationCard;
+export default Card;

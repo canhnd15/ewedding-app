@@ -16,6 +16,7 @@ import ConfirmDelete from "../../components/ConfirmDelete";
 import Menus from "../../components/Menus";
 import SwitchButton from "../../components/SwitchButton";
 import { useDeleteGuest } from "./useDeleteGuest";
+import UpdateGuestForm from "./UpdateGuestForm";
 
 const Cell = styled.div`
   font-size: 1.6rem;
@@ -79,14 +80,11 @@ function GuestRow({ guest }) {
         <Menus.Menu>
           <Menus.Toggle id={`${guest.id}`} />
           <Menus.List id={`${guest.id}`}>
-            <Menus.Button
-              icon={<HiMiniPencilSquare color="blue" />}
-              onClick={() => {
-                console.log("updating");
-              }}
-            >
-              {t("guestTableActionUpdate")}
-            </Menus.Button>
+            <Modal.Open opens={"update-guest-form"}>
+              <Menus.Button icon={<HiMiniPencilSquare color="blue" />}>
+                {t("guestTableActionUpdate")}
+              </Menus.Button>
+            </Modal.Open>
 
             <Modal.Open opens="delete">
               <Menus.Button icon={<HiTrash color="red" />}>
@@ -104,6 +102,9 @@ function GuestRow({ guest }) {
               deleteGuestById({ guestId: guest.id });
             }}
           />
+        </Modal.Window>
+        <Modal.Window name="update-guest-form">
+          <UpdateGuestForm guest={guest} />
         </Modal.Window>
       </Modal>
     </Table.Row>

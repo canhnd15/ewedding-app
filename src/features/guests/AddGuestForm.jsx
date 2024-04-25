@@ -1,4 +1,10 @@
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
+
+import AddGuestTableRow from "./AddGuestTableRow";
+import { useInsertGuestsManually } from "./useInsertGuests";
+import { useUser } from "../authentication/useUser";
 
 import Form from "../../components/Form";
 import FormRow from "../../components/FormRow";
@@ -8,8 +14,6 @@ import Button from "../../components/Button";
 import Checkbox from "../../components/Checkbox";
 import Table from "../../components/Table";
 import Pagination from "../../components/Pagination";
-import { useTranslation } from "react-i18next";
-import { useState } from "react";
 import {
   COLLEAGUES_TAG,
   FAMILY_TAG,
@@ -17,9 +21,6 @@ import {
   OTHERS_TAG,
   RELATIVES_TAG,
 } from "../../utils/constants";
-import AddGuestTableRow from "./AddGuestTableRow";
-import { useInsertGuestsManually } from "./useInsertGuests";
-import { useUser } from "../authentication/useUser";
 
 function AddGuestForm({ onCloseModal }) {
   const { t } = useTranslation();
@@ -116,12 +117,6 @@ function AddGuestForm({ onCloseModal }) {
             {...register("phone")}
           />
         </FormRow>
-        <Input
-          type="hidden"
-          id="invited"
-          disabled={isCreating}
-          {...register("invited")}
-        />
 
         <FormRowCheckBox label={t("isInvited")}>
           <Checkbox

@@ -13,6 +13,9 @@ export const OTHERS_TAG = "OTHERS";
 export const INVITED = "invited";
 export const NOT_INVITED = "not-invited";
 
+export const RECEIVED = "received";
+export const UNRECEIVED = "unreceived";
+
 export const INVITATION_TYPE_NONE = "NONE";
 export const INVITATION_TYPE_CASH = "CASH";
 export const INVITATION_TYPE_BANK_TRANSFER = "BANK_TRANSFER";

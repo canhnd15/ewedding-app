@@ -24,10 +24,10 @@ function MoneyTopTableRow({ info, t }) {
           : t("moneyTableHeaderMoney")}
       </Cell>
       <Cell>
-        {info.key === "money" ? formatCurrency(info.family) : info.family}
+        {info.key === "money" ? formatCurrency(info.friend) : info.friend}
       </Cell>
       <Cell>
-        {info.key === "money" ? formatCurrency(info.friend) : info.friend}
+        {info.key === "money" ? formatCurrency(info.family) : info.family}
       </Cell>
       <Cell>
         {info.key === "money"

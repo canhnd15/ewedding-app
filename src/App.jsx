@@ -2,17 +2,17 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import GlobalStyles from "./styles/GlobalStyles";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import Guests from "./pages/Guests";
-import InvitationCard from "./pages/InvitationCard";
 import AppLayout from "./components/AppLayout";
-import InvitationMoney from "./pages/InvitationMoney";
 import Payment from "./pages/Payment";
 import Services from "./pages/Services";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { Toaster } from "react-hot-toast";
+import Money from "./pages/Money";
+import Card from "./pages/Card";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,11 +39,12 @@ function App() {
           >
             <Route index element={<Navigate replace to={"/login"} />} />
             <Route path="guests" element={<Guests />} />
-            <Route path="invitation-card" element={<InvitationCard />} />
-            <Route path="invitation-money" element={<InvitationMoney />} />
+            <Route path="card" element={<Card />} />
+            <Route path="money" element={<Money />} />
             <Route path="payment" element={<Payment />} />
             <Route path="services" element={<Services />} />
           </Route>
+          s
           <Route path="login" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

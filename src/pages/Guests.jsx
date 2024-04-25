@@ -68,9 +68,7 @@ function Guests() {
               <GuestTableOperations />
               <RowOfBlocks type="horizontal">
                 <Input
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                  }}
+                  onChange={(e) => {}}
                   placeholder={`${t("guestSearchPlaceholder")}`}
                 />
                 <AddGuest />

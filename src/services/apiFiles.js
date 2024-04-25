@@ -1,5 +1,3 @@
-import axios from "axios";
-import * as xlsx from "xlsx";
 import supabase, { SUPABASE_URL } from "./supabase";
 
 export async function getUserGuestFileById(userId) {

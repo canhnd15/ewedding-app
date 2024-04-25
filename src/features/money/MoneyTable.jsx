@@ -14,11 +14,11 @@ function MoneyTable({ userId }) {
 
   return (
     <Menus>
-      <Table columns="180px 90px 130px 130px 120px 250px 50px">
+      <Table columns="200px 90px 150px 150px 250px 100px">
         <Table.Header>
           <div>{t("guestTableHeaderName")}</div>
           <div>{t("isInvited")}</div>
-          <div>{t("guestTableHeaderGaveMoney")}</div>
+          {/* <div>{t("guestTableHeaderGaveMoney")}</div> */}
           <div>{t("guestTableHeaderTakeMoney")}</div>
           <div>{t("guestTableHeaderType")}</div>
           <div>{t("guestTableHeaderNotes")}</div>

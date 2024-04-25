@@ -67,13 +67,13 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={"/invitation-card"}>
+          <StyledNavLink to={"/card"}>
             <MdCardGiftcard />
             <p>{t("sideBarCardTab")}</p>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={"/invitation-money"}>
+          <StyledNavLink to={"/money"}>
             <HiEnvelope />
             <p>{t("sideBarMoneyTab")}</p>
           </StyledNavLink>

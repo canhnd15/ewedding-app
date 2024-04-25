@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { getGuests } from "../../services/apiGuests";
-import { ALL_OPTION, INVITED } from "../../utils/constants";
+import { ALL_OPTION, INVITED, RECEIVED } from "../../utils/constants";
 
 export function useGuests(userId) {
   const [searchParams] = useSearchParams();
@@ -13,6 +13,7 @@ export function useGuests(userId) {
       ? null
       : { field: "tags", value: filterTagsValue };
 
+  //FILTER BY INVITED STATUS
   const filterInvitedValue = searchParams.get("invited");
   const filterInvited =
     !filterInvitedValue || filterInvitedValue === ALL_OPTION
@@ -22,6 +23,16 @@ export function useGuests(userId) {
           value: filterInvitedValue === INVITED ? true : false,
         };
 
+  //FILTER BY RECEIVED MONEY STATUS
+  const filterTakenValue = searchParams.get("taken");
+  const filterTaken =
+    !filterTakenValue || filterTakenValue === ALL_OPTION
+      ? null
+      : {
+          field: "type",
+          value: filterTakenValue === RECEIVED ? true : false,
+        };
+
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
   const {
@@ -29,8 +40,9 @@ export function useGuests(userId) {
     data: { guests, count } = {},
     error,
   } = useQuery({
-    queryKey: ["guests", filterTags, filterInvited, page],
-    queryFn: () => getGuests({ filterTags, filterInvited, page, userId }),
+    queryKey: ["guests", filterTags, filterInvited, filterTaken, page],
+    queryFn: () =>
+      getGuests({ filterTags, filterInvited, filterTaken, page, userId }),
   });
 
   return { isLoading, error, guests, count };

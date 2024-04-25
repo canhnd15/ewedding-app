@@ -9,7 +9,13 @@ import {
 } from "../utils/constants";
 
 // GET LIST OF GUEST BY USER_ID WITH FILTER VALUES
-export async function getGuests({ filterTags, filterInvited, page, userId }) {
+export async function getGuests({
+  filterTags,
+  filterInvited,
+  filterTaken,
+  page,
+  userId,
+}) {
   let query = supabase
     .from("guests")
     .select("*", {
@@ -19,7 +25,15 @@ export async function getGuests({ filterTags, filterInvited, page, userId }) {
     .order("updated_at", { ascending: false });
 
   if (filterTags) query = query.eq(filterTags.field, filterTags.value);
+
   if (filterInvited) query = query.eq(filterInvited.field, filterInvited.value);
+
+  if (filterTaken && filterTaken.value === true) {
+    query = query.neq(filterTaken.field, null);
+  }
+  if (filterTaken && filterTaken.value === false) {
+    query = query.is(filterTaken.field, null);
+  }
 
   if (page) {
     const from = (page - 1) * PAGE_SIZE;
@@ -29,7 +43,6 @@ export async function getGuests({ filterTags, filterInvited, page, userId }) {
   }
 
   const { data: guests, error, count } = await query;
-
   if (error) {
     throw new Error("Guests could not be loaded.");
   }
@@ -165,6 +178,37 @@ export async function updateInvitationMoneyType(guestId, invitationType) {
   return { data, error };
 }
 
+export async function getDataExportExcelApi(userId) {
+  let query = supabase
+    .from("guests")
+    .select(
+      "name, phone, gave_money, notes, tags, is_invited, take_money, type",
+      {
+        count: "exact",
+      }
+    )
+    .eq("user_id", userId);
+
+  const { data: guests, error } = await query;
+
+  if (error) {
+    throw new Error("Guests could not be loaded.");
+  }
+
+  return { guests };
+}
+
+export async function upsertGuestApi(updatedGuest) {
+  const { data, error } = await supabase
+    .from("guests")
+    .upsert(updatedGuest)
+    .select();
+
+  if (error) throw new Error("Error: " + error.message);
+
+  return { data, error };
+}
+
 // SEARCH
 export async function searchGuestsApi(searchValue) {
   let { data: guests, error } = await supabase
@@ -177,21 +221,25 @@ export async function searchGuestsApi(searchValue) {
   return { guests, error };
 }
 
+// COUNT ALL GUESTS BY TAGS AND THEIR TOTAL MONEY FOR MONEY SCREEN
 export async function getSummaryMoneyAndGuestsApi(userId) {
   let query = supabase
     .from("guests")
-    .select("tags, take_money", {
-      count: "exact",
-    })
+    .select(
+      "name, phone, gave_money, notes, tags, is_invited, take_money, type",
+      {
+        count: "exact",
+      }
+    )
     .eq("user_id", userId);
 
-  const { data, error } = await query;
+  const { data: guests, error } = await query;
 
   if (error) {
     throw new Error("Error when counting guests.");
   }
 
-  const counter = data.reduce(
+  const counter = guests.reduce(
     (counters, guest) => {
       switch (guest.tags) {
         case FRIEND_TAG:
@@ -278,5 +326,5 @@ export async function getSummaryMoneyAndGuestsApi(userId) {
     }
   );
 
-  return result;
+  return { result, guests };
 }

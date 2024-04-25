@@ -63,12 +63,12 @@ function MiniMainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={"/invitation-card"}>
+          <StyledNavLink to={"/card"}>
             <MdCardGiftcard />
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to={"/invitation-money"}>
+          <StyledNavLink to={"/money"}>
             <HiEnvelope />
           </StyledNavLink>
         </li>

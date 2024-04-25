@@ -4,12 +4,12 @@ import { getSummaryMoneyAndGuestsApi } from "../../services/apiGuests";
 export function useMoneyTopTable(userId) {
   const {
     isLoading,
-    data: result,
+    data: { result = [], guests = {} },
     error,
   } = useQuery({
     queryKey: ["guests"],
     queryFn: () => getSummaryMoneyAndGuestsApi(userId),
   });
 
-  return { isLoading, error, result };
+  return { isLoading, error, result, guests };
 }

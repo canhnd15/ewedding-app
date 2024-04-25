@@ -17,6 +17,7 @@ import {
 } from "../../utils/constants";
 import { useUpdateInvitationType } from "./useUpdateInvitationType";
 import MoneyTypeSelect from "../../components/MoneyTypeSelect";
+import UpdateGuestForm from "../guests/UpdateGuestForm";
 
 function MoneyRow({ guest }) {
   const { t } = useTranslation();
@@ -43,7 +44,12 @@ function MoneyRow({ guest }) {
   ];
 
   const doUpdateInvitationType = (e) => {
-    updateInvitationType({ guestId: guest.id, invitationType: e.target.value });
+    const invitationType = e.target.value;
+    updateInvitationType({
+      guestId: guest.id,
+      invitationType:
+        invitationType === INVITATION_TYPE_NONE ? null : invitationType,
+    });
   };
 
   return (
@@ -56,13 +62,13 @@ function MoneyRow({ guest }) {
           <SwitchButton currentInvitedStatus={true} guestId={guest.id} />
         )}
       </Cell>
-      <Cell>
+      {/* <Cell>
         {Number(guest.gave_money) === 0 ? (
           <span>&mdash;</span>
         ) : (
           formatCurrency(guest.gave_money)
         )}
-      </Cell>
+      </Cell> */}
       <Cell>
         {Number(guest.take_money) === 0 ? (
           <span>&mdash;</span>
@@ -85,14 +91,11 @@ function MoneyRow({ guest }) {
         <Menus.Menu>
           <Menus.Toggle id={`${guest.id}`} />
           <Menus.List id={`${guest.id}`}>
-            <Menus.Button
-              icon={<HiMiniPencilSquare color="blue" />}
-              onClick={() => {
-                console.log("updating");
-              }}
-            >
-              {t("guestTableActionUpdate")}
-            </Menus.Button>
+            <Modal.Open opens="update-money-form">
+              <Menus.Button icon={<HiMiniPencilSquare color="blue" />}>
+                {t("guestTableActionUpdate")}
+              </Menus.Button>
+            </Modal.Open>
 
             <Modal.Open opens="delete">
               <Menus.Button icon={<HiTrash color="red" />}>
@@ -110,6 +113,9 @@ function MoneyRow({ guest }) {
               deleteGuestById({ guestId: guest.id });
             }}
           />
+        </Modal.Window>
+        <Modal.Window name={"update-money-form"}>
+          <UpdateGuestForm guest={guest} isMoneyForm={true} />
         </Modal.Window>
       </Modal>
     </Table.Row>

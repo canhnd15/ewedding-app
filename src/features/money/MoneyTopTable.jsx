@@ -2,9 +2,6 @@ import styled from "styled-components";
 import Table from "../../components/Table";
 import { useTranslation } from "react-i18next";
 import MoneyTopTableRow from "./MoneyTopTableRow";
-import { useMoneyTopTable } from "./useMoneyTopTable";
-import { useUser } from "../authentication/useUser";
-import Spinner from "../../components/Spinner";
 
 const StyledMoneyTopLayout = styled.div`
   display: grid;
@@ -12,31 +9,8 @@ const StyledMoneyTopLayout = styled.div`
   gap: 1rem;
 `;
 
-const data = [
-  {
-    key: "guests",
-    family: 100,
-    friend: 20,
-    colleagues: 15,
-    relatives: 20,
-    others: 20,
-  },
-  {
-    key: "money",
-    family: 100000000,
-    friend: 2000000,
-    colleagues: 15000000,
-    relatives: 2000000,
-    others: 20000000,
-  },
-];
-
-function MoneyTopTable() {
+function MoneyTopTable({ result }) {
   const { t } = useTranslation();
-  const { user, isLoading: isLoadingUser } = useUser();
-  const { result, isLoading: isLoadingData, error } = useMoneyTopTable(user.id);
-
-  if (isLoadingUser || isLoadingData) return <Spinner />;
 
   return (
     <StyledMoneyTopLayout>
