@@ -13,6 +13,7 @@ export async function getGuests({
   filterTags,
   filterInvited,
   filterTaken,
+  searchQuery,
   page,
   userId,
 }) {
@@ -31,8 +32,13 @@ export async function getGuests({
   if (filterTaken && filterTaken.value === true) {
     query = query.neq(filterTaken.field, null);
   }
+
   if (filterTaken && filterTaken.value === false) {
     query = query.is(filterTaken.field, null);
+  }
+
+  if (searchQuery) {
+    query = query.ilike("name", `%${searchQuery}%`);
   }
 
   if (page) {
@@ -209,122 +215,16 @@ export async function upsertGuestApi(updatedGuest) {
   return { data, error };
 }
 
-// SEARCH
-export async function searchGuestsApi(searchValue) {
-  let { data: guests, error } = await supabase
-    .from("guests")
-    .select("*")
-    .like("name", `%${searchValue}%`);
+export async function countByReceivedStatus() {}
 
-  if (error) throw new Error("Error when searching...");
-
-  return { guests, error };
-}
-
-// COUNT ALL GUESTS BY TAGS AND THEIR TOTAL MONEY FOR MONEY SCREEN
-export async function getSummaryMoneyAndGuestsApi(userId) {
-  let query = supabase
-    .from("guests")
-    .select(
-      "name, phone, gave_money, notes, tags, is_invited, take_money, type",
-      {
-        count: "exact",
-      }
-    )
-    .eq("user_id", userId);
-
-  const { data: guests, error } = await query;
+export async function getSummaryMoneyAndGuestsApiV1({ userId }) {
+  const { data, error } = await supabase.rpc("calculate_guests_and_money_v1", {
+    userid: userId,
+  });
 
   if (error) {
     throw new Error("Error when counting guests.");
   }
 
-  const counter = guests.reduce(
-    (counters, guest) => {
-      switch (guest.tags) {
-        case FRIEND_TAG:
-          counters.numberFriends += 1;
-          counters.moneyFriends += guest.take_money;
-          break;
-        case FAMILY_TAG:
-          counters.numberFamily += 1;
-          counters.moneyFamily += guest.take_money;
-          break;
-        case COLLEAGUES_TAG:
-          counters.numberColleagues += 1;
-          counters.moneyColleagues += guest.take_money;
-          break;
-        case RELATIVES_TAG:
-          counters.numberRelatives += 1;
-          counters.moneyRelatives += guest.take_money;
-          break;
-        case OTHERS_TAG:
-          counters.numberOthers += 1;
-          counters.moneyOthers += guest.take_money;
-          break;
-        default:
-          break;
-      }
-      return counters;
-    },
-    {
-      numberFriends: 0,
-      numberFamily: 0,
-      numberColleagues: 0,
-      numberRelatives: 0,
-      numberOthers: 0,
-      moneyFriends: 0,
-      moneyFamily: 0,
-      moneyColleagues: 0,
-      moneyRelatives: 0,
-      moneyOthers: 0,
-    }
-  );
-
-  const {
-    numberFriends,
-    numberFamily,
-    numberColleagues,
-    numberRelatives,
-    numberOthers,
-    moneyFriends,
-    moneyFamily,
-    moneyColleagues,
-    moneyRelatives,
-    moneyOthers,
-  } = counter;
-
-  let result = [];
-  result.push(
-    {
-      key: "guests",
-      family: numberFamily,
-      friend: numberFriends,
-      colleagues: numberColleagues,
-      relatives: numberRelatives,
-      others: numberOthers,
-      total:
-        numberFamily +
-        numberFriends +
-        numberColleagues +
-        numberRelatives +
-        numberOthers,
-    },
-    {
-      key: "money",
-      family: moneyFamily,
-      friend: moneyFriends,
-      colleagues: moneyColleagues,
-      relatives: moneyRelatives,
-      others: moneyOthers,
-      total:
-        moneyFamily +
-        moneyFriends +
-        moneyColleagues +
-        moneyRelatives +
-        moneyOthers,
-    }
-  );
-
-  return { result, guests };
+  return data;
 }

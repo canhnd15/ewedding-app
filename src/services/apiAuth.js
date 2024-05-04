@@ -17,6 +17,18 @@ export async function signup({ fullName, email, password }) {
   return data;
 }
 
+export async function handleSignInWithGoogle(response) {
+  const { data, error } = await supabase.auth.signInWithIdToken({
+    provider: "google",
+    token: response.credential,
+    nonce: "NONCE", // must be the same one as provided in data-nonce (if any)
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
 export async function login({ email, password }) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -72,4 +84,14 @@ export async function updateCurrentUser({ password, fullName, avatar }) {
 
   if (error2) throw new Error(error2.message);
   return updatedUser;
+}
+
+export async function signInWithFacebook() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "facebook",
+  });
+
+  if (error) throw new Error(error.message);
+
+  return { data, error };
 }

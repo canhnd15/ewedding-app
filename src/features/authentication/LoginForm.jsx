@@ -5,6 +5,7 @@ import Button from "../../components/Button";
 import Form from "../../components/Form";
 import SpinnerMini from "../../components/SpinnerMini";
 import FormRowVertical from "../../components/FormRowVertical";
+import { FcGoogle } from "react-icons/fc";
 
 function LoginForm() {
   const [email, setEmail] = useState("an123@gmail.com");
@@ -51,6 +52,9 @@ function LoginForm() {
         <Button size="large" disabled={isLoading}>
           {!isLoading ? "Log in" : <SpinnerMini />}
         </Button>
+      </FormRowVertical>
+      <FormRowVertical>
+        <FcGoogle size={"36px"} cursor={"pointer"} />
       </FormRowVertical>
     </Form>
   );

@@ -12,6 +12,7 @@ export function useDeleteGuest(guestId) {
     onSuccess: () => {
       toast.success(t("deleteSuccessfullyMessage"));
       queryClient.invalidateQueries({ queryKey: ["guests"] });
+      window.location.reload();
     },
     onError: (err) => {
       toast.error(err.message);

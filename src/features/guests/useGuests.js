@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { getGuests } from "../../services/apiGuests";
 import { ALL_OPTION, INVITED, RECEIVED } from "../../utils/constants";
+import { useQuery } from "@tanstack/react-query";
 
 export function useGuests(userId) {
   const [searchParams] = useSearchParams();
@@ -33,6 +33,8 @@ export function useGuests(userId) {
           value: filterTakenValue === RECEIVED ? true : false,
         };
 
+  const searchQuery = searchParams.get("search");
+
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
   const {
@@ -40,9 +42,23 @@ export function useGuests(userId) {
     data: { guests, count } = {},
     error,
   } = useQuery({
-    queryKey: ["guests", filterTags, filterInvited, filterTaken, page],
+    queryKey: [
+      "guests",
+      filterTags,
+      filterInvited,
+      filterTaken,
+      searchQuery,
+      page,
+    ],
     queryFn: () =>
-      getGuests({ filterTags, filterInvited, filterTaken, page, userId }),
+      getGuests({
+        filterTags,
+        filterInvited,
+        filterTaken,
+        searchQuery,
+        page,
+        userId,
+      }),
   });
 
   return { isLoading, error, guests, count };

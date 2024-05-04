@@ -6,6 +6,10 @@ const StyledGuestLayout = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto auto auto;
   gap: 2rem;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 function GuestLayout({ counterInfo }) {

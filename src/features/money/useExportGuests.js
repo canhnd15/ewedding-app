@@ -7,7 +7,7 @@ export function useExportGuests(userId) {
     data: { guests } = {},
     error,
   } = useQuery({
-    queryKey: ["guests"],
+    queryKey: ["guests_export_data"],
     queryFn: () => getDataExportExcelApi(userId),
   });
 

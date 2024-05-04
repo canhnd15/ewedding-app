@@ -75,26 +75,31 @@ const defaultOptions = [
   },
 ];
 
-const SelectInput = ({ defaultValue }) => {
+const SelectInput = ({ defaultValue, setGaveMoney, setTakeMoney, type }) => {
   const [value, setValue] = useState(defaultValue);
-  const [options, setOptions] = useState(defaultOptions);
+  const [options] = useState(defaultOptions);
   const [isSelecting, setIsSelecting] = useState(false);
 
   const handleInputChange = (e) => {
     setValue(e.target.value);
     setIsSelecting(true);
+
+    if (type === "GAVE") setGaveMoney(e.target.value);
+    if (type === "TAKE") setTakeMoney(e.target.value);
   };
 
   const handleSelectOption = (option) => {
     setValue(option.value);
     setIsSelecting(false);
+
+    if (type === "GAVE") setGaveMoney(option.value);
+    if (type === "TAKE") setTakeMoney(option.value);
   };
 
   return (
     <Wrapper>
       <Input
         type="number"
-        id="takeMoney"
         value={value}
         onChange={handleInputChange}
         onFocus={() => setIsSelecting(true)}

@@ -17,6 +17,11 @@ const RowOfBlocks = styled.div`
       flex-direction: column;
       gap: 1.6rem;
     `}
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 RowOfBlocks.defaultProps = {

@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { useGuests } from "../guests/useGuests";
-import Spinner from "../../components/Spinner";
 import Menus from "../../components/Menus";
 import Table from "../../components/Table";
 import Pagination from "../../components/Pagination";
 import MoneyRow from "./MoneyRow";
+import Spinner from "../../components/Spinner";
 
 function MoneyTable({ userId }) {
   const { t } = useTranslation();
@@ -18,7 +18,6 @@ function MoneyTable({ userId }) {
         <Table.Header>
           <div>{t("guestTableHeaderName")}</div>
           <div>{t("isInvited")}</div>
-          {/* <div>{t("guestTableHeaderGaveMoney")}</div> */}
           <div>{t("guestTableHeaderTakeMoney")}</div>
           <div>{t("guestTableHeaderType")}</div>
           <div>{t("guestTableHeaderNotes")}</div>

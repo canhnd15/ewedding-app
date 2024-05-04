@@ -1,21 +1,24 @@
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import FileSaver from "file-saver";
+import * as xlsx from "xlsx";
 import { useUser } from "../features/authentication/useUser";
+import { FaDownload } from "react-icons/fa6";
+import { useSearchParams } from "react-router-dom";
+import { SEARCH_KEY_QUERY } from "../utils/constants";
+import { useExportGuests } from "../features/money/useExportGuests";
 
 import Row from "../components/Row";
 import MoneyTable from "../features/money/MoneyTable";
 import Spinner from "../components/Spinner";
-import MoneyTopTable from "../features/money/MoneyTopTable";
 import RowOfBlocks from "../components/RowOfBlocks";
-import Input from "../components/Input";
+import Input from "../components/SearchInput";
 import Button from "../components/Button";
 import styled from "styled-components";
-import { FaDownload } from "react-icons/fa6";
 import MoneyTableOperations from "../features/money/MoneyTableOperations";
 import DisplayButton from "../components/DisplayButton";
-import * as xlsx from "xlsx";
-import FileSaver from "file-saver";
-import { useExportGuests } from "../features/money/useExportGuests";
-import { useMoneyTopTable } from "../features/money/useMoneyTopTable";
+import MoneyTopTable from "../features/money/MoneyTopTable";
+import AddGuest from "../features/guests/AddGuest";
 
 const InnerButton = styled.div`
   display: flex;
@@ -26,15 +29,21 @@ const InnerButton = styled.div`
 function Money() {
   const { t } = useTranslation();
   const { user, isLoading: isLoadingUser } = useUser();
-  const {
-    result,
-    guests,
-    isLoading: isLoadingDataTopTable,
-  } = useMoneyTopTable(user.id);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { guests, isLoading: isLoadingExportData } = useExportGuests(user.id);
+  const [query, setQuery] = useState("");
+  const [total, setTotal] = useState({});
 
-  if (isLoadingUser && isLoadingDataTopTable) return <Spinner />;
+  if (isLoadingUser) return <Spinner />;
 
-  const exportToCSV = ({ guests, fileName }) => {
+  const handleSearch = (e) => {
+    const searchValue = e.target.value;
+    searchParams.set(SEARCH_KEY_QUERY, searchValue);
+    setSearchParams(searchParams);
+    setQuery(searchValue);
+  };
+
+  const exportToExcel = ({ guests, fileName }) => {
     const fileType =
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
     const fileExtension = ".xlsx";
@@ -62,33 +71,39 @@ function Money() {
         <RowOfBlocks type="horizontal">
           <DisplayButton
             text={t("guestScreenHeaderReceived").toUpperCase()}
-            number={50}
+            number={total.received}
           />
           <DisplayButton
             text={t("guestScreenHeaderUnreceived").toUpperCase()}
-            number={50}
+            number={total.unreceived}
           />
+        </RowOfBlocks>
+        <RowOfBlocks type="horizontal">
+          <AddGuest title={t("guestAddMoreLaterBtn")} />
+          <Button
+            variation="excel"
+            disabled={isLoadingExportData}
+            onClick={() =>
+              exportToExcel({ guests: guests, fileName: user.email })
+            }
+          >
+            <InnerButton>
+              {t("guestDownloadBtn")}
+              <FaDownload size={"18px"} />
+            </InnerButton>
+          </Button>
         </RowOfBlocks>
       </Row>
-      <MoneyTopTable result={result} />
-      <RowOfBlocks type="horizontal">
-        <RowOfBlocks type="horizontal">
-          <Input
-            onChange={(e) => {}}
-            placeholder={`${t("guestSearchPlaceholder")}`}
-          />
-          <MoneyTableOperations />
-        </RowOfBlocks>
-        <Button
-          variation="excel"
-          onClick={() => exportToCSV({ guests: guests, fileName: user.email })}
-        >
-          <InnerButton>
-            {t("guestDownloadBtn")}
-            <FaDownload size={"18px"} />
-          </InnerButton>
-        </Button>
-      </RowOfBlocks>
+      <MoneyTopTable userId={user.id} setTotal={setTotal} />
+      <Row type="horizontal">
+        <Input
+          onChange={(e) => handleSearch(e)}
+          placeholder={`${t("guestSearchPlaceholder")}`}
+          query={query}
+          setQuery={setQuery}
+        />
+        <MoneyTableOperations />
+      </Row>
       <MoneyTable userId={user.id} />
     </Row>
   );

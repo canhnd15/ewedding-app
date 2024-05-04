@@ -31,8 +31,10 @@ function UpdateGuestForm({ onCloseModal, guest, isMoneyForm = false }) {
   const [isInvited, setIsInvited] = useState(guest.is_invited);
   const [tags, setTags] = useState(guest.tags);
   const [type, setType] = useState(guest.type !== null ? guest.type : null);
+  const [gaveMoney, setGaveMoney] = useState(guest.gave_money);
+  const [takeMoney, setTakeMoney] = useState(guest.take_money);
 
-  const { register, handleSubmit, getValues, formState, reset } = useForm({
+  const { register, handleSubmit, formState, reset } = useForm({
     defaultValues: {},
   });
   const { errors } = formState;
@@ -61,8 +63,8 @@ function UpdateGuestForm({ onCloseModal, guest, isMoneyForm = false }) {
       id: guest.id,
       name: data.name,
       notes: data.notes !== "" ? data.notes : null,
-      gave_money: data.gaveMoney !== "" ? data.gaveMoney : null,
-      take_money: data.takeMoney !== "" ? data.takeMoney : null,
+      gave_money: gaveMoney !== "" ? gaveMoney : null,
+      take_money: takeMoney !== "" ? takeMoney : null,
       type: type,
       phone: data.phone !== "" ? data.phone : null,
       is_invited: isInvited,
@@ -74,12 +76,18 @@ function UpdateGuestForm({ onCloseModal, guest, isMoneyForm = false }) {
       onSuccess: () => {
         reset();
         onCloseModal?.();
+        window.location.reload();
       },
     });
   }
 
   function onError(errors) {
     console.log(errors);
+  }
+
+  function handleTypeChanged(e) {
+    const invitationValue = e.target.value;
+    setType(invitationValue === INVITATION_TYPE_NONE ? null : invitationValue);
   }
 
   return (
@@ -103,39 +111,26 @@ function UpdateGuestForm({ onCloseModal, guest, isMoneyForm = false }) {
           />
         </FormRow>
         <FormRow label={t("guestTableHeaderGaveMoney")}>
-          {/* <Input
-            type="number"
-            id="gaveMoney"
-            defaultValue={guest.gave_money}
-            disabled={isUpdating}
-            {...register("gaveMoney")}
-          /> */}
-          <SelectInput defaultValue={guest.gave_money} />
+          <SelectInput
+            defaultValue={gaveMoney}
+            setGaveMoney={setGaveMoney}
+            type={"GAVE"}
+          />
         </FormRow>
         {isMoneyForm && (
           <FormRow label={t("guestTableHeaderTakeMoney")}>
-            {/* <Input
-              type="number"
-              id="takeMoney"
-              defaultValue={guest.take_money}
-              disabled={isUpdating}
-              {...register("takeMoney")}
-            /> */}
-            <SelectInput defaultValue={guest.take_money} />
+            <SelectInput
+              defaultValue={takeMoney}
+              setTakeMoney={setTakeMoney}
+              type={"TAKE"}
+            />
           </FormRow>
         )}
         {isMoneyForm && (
           <FormRow label={t("guestTableHeaderType")}>
             <MoneyTypeSelect
               options={options}
-              onChange={(e) => {
-                const invitationValue = e.target.value;
-                setType(
-                  invitationValue === INVITATION_TYPE_NONE
-                    ? null
-                    : invitationValue
-                );
-              }}
+              onChange={(e) => handleTypeChanged(e)}
               disabled={isUpdating}
               value={guest.type}
               color={guest.type === null ? INVITATION_TYPE_NONE : type}

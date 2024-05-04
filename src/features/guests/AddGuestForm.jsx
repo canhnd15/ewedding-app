@@ -21,6 +21,7 @@ import {
   OTHERS_TAG,
   RELATIVES_TAG,
 } from "../../utils/constants";
+import SelectInput from "../../components/SelectInput";
 
 function AddGuestForm({ onCloseModal }) {
   const { t } = useTranslation();
@@ -31,6 +32,7 @@ function AddGuestForm({ onCloseModal }) {
   const [savedGuests, setSavedGuests] = useState([]);
   const [tags, setTags] = useState(null);
   const [isInvited, setIsInvited] = useState(false);
+  const [gaveMoney, setGaveMoney] = useState("");
 
   const { register, handleSubmit, formState } = useForm({
     defaultValues: {},
@@ -53,7 +55,7 @@ function AddGuestForm({ onCloseModal }) {
     const newSavedGuest = {
       name: data.name,
       phone: data.phone !== "" ? data.phone : null,
-      gave_money: data.gaveMoney !== "" ? data.gaveMoney : null,
+      gave_money: gaveMoney !== "" ? gaveMoney : null,
       notes: data.notes,
       tags: tags,
       is_invited: isInvited,
@@ -94,11 +96,16 @@ function AddGuestForm({ onCloseModal }) {
           />
         </FormRow>
         <FormRow label={t("guestInviteMoreFormMyGaveMoney")}>
-          <Input
+          {/* <Input
             type="number"
             id="gaveMoney"
             disabled={isCreating}
             {...register("gaveMoney")}
+          /> */}
+          <SelectInput
+            defaultValue={gaveMoney}
+            setGaveMoney={setGaveMoney}
+            type={"GAVE"}
           />
         </FormRow>
         <FormRow label={t("guestInviteMoreFormNotes")}>

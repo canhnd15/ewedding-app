@@ -1,6 +1,7 @@
 import { SUPABASE_URL } from "../services/supabase";
 
 export const PAGE_SIZE = 10;
+export const CARD_TEMPS_PAGE_SIZE = 6;
 
 export const ALL_OPTION = "all";
 
@@ -15,6 +16,8 @@ export const NOT_INVITED = "not-invited";
 
 export const RECEIVED = "received";
 export const UNRECEIVED = "unreceived";
+
+export const SEARCH_KEY_QUERY = "search";
 
 export const INVITATION_TYPE_NONE = "NONE";
 export const INVITATION_TYPE_CASH = "CASH";

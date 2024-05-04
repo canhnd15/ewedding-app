@@ -8,6 +8,7 @@ import Modal from "../../components/Modal";
 import UploadGuestForm from "./UploadGuestForm";
 import { PUBLIC_GUEST_LIST_EXCEL_TEMPLATE } from "../../utils/constants";
 import ButtonLink from "../../components/ButtonLink";
+import AddGuest from "./AddGuest";
 
 const GuestFileActionBlock = styled.div`
   display: flex;
@@ -48,6 +49,7 @@ function GuestFileActions() {
           <PiDownloadBold size={"18px"} />
         </InnerButton>
       </ButtonLink>
+      <AddGuest title={t("guestAddMoreBtn")} />
     </GuestFileActionBlock>
   );
 }

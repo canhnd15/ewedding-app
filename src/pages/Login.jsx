@@ -3,6 +3,7 @@ import LoginForm from "../features/authentication/LoginForm";
 import Logo from "../components/Logo";
 import Heading from "../components/Heading";
 import { useTranslation } from "react-i18next";
+import LoginFormV1 from "../features/authentication/LoginFormV1";
 
 const LoginLayout = styled.main`
   min-height: 100vh;
@@ -17,11 +18,15 @@ const LoginLayout = styled.main`
 function Login() {
   const { t } = useTranslation();
   return (
-    <LoginLayout>
+    // <LoginLayout>
+    //   <Logo />
+    //   <Heading as="h4">{t("loginHeader")}</Heading>
+    //   {/* <LoginForm /> */}
+    // </LoginLayout>
+    <>
       <Logo />
-      <Heading as="h4">{t("loginHeader")}</Heading>
-      <LoginForm />
-    </LoginLayout>
+      <LoginFormV1 />
+    </>
   );
 }
 

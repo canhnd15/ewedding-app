@@ -23,6 +23,7 @@ const Avatar = styled.img`
 
 function UserAvatar() {
   const { user, isLoading: isLoadingUser } = useUser();
+  const userInfo = user.user_metadata;
 
   const getUserName = () => {
     if (!isLoadingUser) {
@@ -33,8 +34,11 @@ function UserAvatar() {
 
   return (
     <StyledUserAvatar>
-      <Avatar src={"default-avatar.jpg"} alt={"default avt"} />
-      <span>{getUserName()}</span>
+      <Avatar
+        src={userInfo.picture ? userInfo.picture : "default-avatar.jpg"}
+        alt={"user avt"}
+      />
+      <span>{userInfo.full_name ? userInfo.full_name : getUserName()}</span>
     </StyledUserAvatar>
   );
 }
