@@ -5,7 +5,7 @@ function Payment() {
   return (
     <>
       <Row type="horizontal">
-        <Heading>CHI TIÊU / MUA BÁN</Heading>
+        <Heading>MUA BÁN</Heading>
       </Row>
     </>
   );
