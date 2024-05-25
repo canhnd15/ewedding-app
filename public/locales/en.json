@@ -70,5 +70,8 @@
   "invitationTypeNone": "None",
   "invitationTypeCash": "Cash",
   "invitationTypeBank": "Bank transfer",
-  "invitationTypeOther": "Other"
+  "invitationTypeOther": "Other",
+  "invalidPhoneMessage": "Invalid phone number",
+  "generateCard": "CREATE CARD",
+  "yourMessageToGuest": "Your messages to the guest..."
 }

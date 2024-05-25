@@ -22,6 +22,7 @@ import {
 import { useUpsertGuest } from "./useUpsertGuest";
 import MoneyTypeSelect from "../../components/MoneyTypeSelect";
 import SelectInput from "../../components/SelectInput";
+import { checkValidPhone } from "../../utils/helpers";
 
 function UpdateGuestForm({ onCloseModal, guest, isMoneyForm = false }) {
   const { t } = useTranslation();
@@ -34,7 +35,7 @@ function UpdateGuestForm({ onCloseModal, guest, isMoneyForm = false }) {
   const [gaveMoney, setGaveMoney] = useState(guest.gave_money);
   const [takeMoney, setTakeMoney] = useState(guest.take_money);
 
-  const { register, handleSubmit, formState, reset } = useForm({
+  const { register, handleSubmit, formState, getValues, reset } = useForm({
     defaultValues: {},
   });
   const { errors } = formState;
@@ -127,14 +128,32 @@ function UpdateGuestForm({ onCloseModal, guest, isMoneyForm = false }) {
           </FormRow>
         )}
         {isMoneyForm && (
-          <FormRow label={t("guestTableHeaderType")}>
-            <MoneyTypeSelect
-              options={options}
-              onChange={(e) => handleTypeChanged(e)}
-              disabled={isUpdating}
-              value={guest.type}
-              color={guest.type === null ? INVITATION_TYPE_NONE : type}
-            />
+          <FormRow
+            label={t("guestTableHeaderType")}
+            error={errors?.type?.message}
+          >
+            <>
+              <MoneyTypeSelect
+                options={options}
+                onChange={(e) => handleTypeChanged(e)}
+                disabled={isUpdating}
+                value={guest.type}
+                color={guest.type === null ? INVITATION_TYPE_NONE : type}
+              />
+              <Input
+                type="text"
+                id="type"
+                defaultValue={guest.notes}
+                disabled={isUpdating}
+                hidden
+                {...register("type", {
+                  validate: () =>
+                    takeMoney === "" ||
+                    takeMoney === 0 ||
+                    "Phai chon truong nay",
+                })}
+              />
+            </>
           </FormRow>
         )}
         <FormRow label={t("guestInviteMoreFormNotes")}>
@@ -146,13 +165,21 @@ function UpdateGuestForm({ onCloseModal, guest, isMoneyForm = false }) {
             {...register("notes")}
           />
         </FormRow>
-        <FormRow label={t("guestInviteMoreFormPhone")}>
+        <FormRow
+          label={t("guestInviteMoreFormPhone")}
+          error={errors?.phone?.message}
+        >
           <Input
             type="text"
             id="phone"
             defaultValue={guest.phone}
             disabled={isUpdating}
-            {...register("phone")}
+            {...register("phone", {
+              validate: (value) =>
+                value !== "" ||
+                checkValidPhone(value) ||
+                t("invalidPhoneMessage"),
+            })}
           />
         </FormRow>
 

@@ -10,6 +10,9 @@ const StyledTable = styled.div`
   border-radius: 7px;
   overflow-y: auto;
   overflow-x: auto;
+
+  /* min-height: 500px; */
+  /* max-height: 500px; */
 `;
 
 const CommonRow = styled.div`

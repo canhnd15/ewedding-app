@@ -70,5 +70,8 @@
   "invitationTypeNone": "Chưa mừng",
   "invitationTypeCash": "Phong bì",
   "invitationTypeBank": "Chuyển khoản",
-  "invitationTypeOther": "Khác"
+  "invitationTypeOther": "Khác",
+  "invalidPhoneMessage": "Số điện thoại không hợp lệ",
+  "generateCard": "TẠO THIỆP",
+  "yourMessageToGuest": "Lời nhắn của bạn tới khách mời..."
 }

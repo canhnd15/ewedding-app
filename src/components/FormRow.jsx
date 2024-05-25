@@ -31,15 +31,23 @@ const Label = styled.label`
   font-weight: 500;
 `;
 
+const RequiredStar = styled.span`
+  color: red;
+`;
+
 const Error = styled.span`
   font-size: 1.4rem;
   color: var(--color-red-700);
 `;
 
-function FormRow({ label, error, children }) {
+function FormRow({ label, error, isRequired, children }) {
   return (
     <StyledFormRow>
-      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+      {label && (
+        <Label htmlFor={children.props.id}>
+          {label} {isRequired && <RequiredStar>*</RequiredStar>}
+        </Label>
+      )}
       {children}
       {error && <Error>{error}</Error>}
     </StyledFormRow>

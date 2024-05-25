@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 
 const colors = {
+  // DEFAULT: css`
+  //   color: var(--color-gray-300);
+  // `,
   DEFAULT: css`
-    color: var(--color-gray-300);
-  `,
-  NONE: css`
     color: var(--color-red-700);
   `,
   CASH: css`
@@ -20,7 +20,7 @@ const colors = {
 
 const StyledMoneyTypeSelect = styled.select`
   font-size: 1.4rem;
-  padding: 5px;
+  padding: 0.7rem 1.2rem;
   border: 1px solid var(--color-grey-300);
   ${(props) => colors[props.color]}
   ${(props) =>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import supabase from "../../services/supabase";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import Logo from "../../components/Logo";
 
 const Container = styled.div`
   width: 100vw;
@@ -38,6 +39,7 @@ function LoginFormV1() {
       <>
         <Container>
           <AuthBlock>
+            <Logo />
             <Auth
               supabaseClient={supabase}
               appearance={{ theme: ThemeSupa }}

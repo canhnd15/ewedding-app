@@ -14,6 +14,9 @@ import Button from "../../components/Button";
 import Checkbox from "../../components/Checkbox";
 import Table from "../../components/Table";
 import Pagination from "../../components/Pagination";
+import Select from "../../components/Select";
+import SelectInput from "../../components/SelectInput";
+import RequiredMessage from "../../components/RequiredMessage";
 import {
   COLLEAGUES_TAG,
   FAMILY_TAG,
@@ -21,7 +24,6 @@ import {
   OTHERS_TAG,
   RELATIVES_TAG,
 } from "../../utils/constants";
-import SelectInput from "../../components/SelectInput";
 
 function AddGuestForm({ onCloseModal }) {
   const { t } = useTranslation();
@@ -30,11 +32,11 @@ function AddGuestForm({ onCloseModal }) {
 
   const [displayedGuests, setDisplayedGuests] = useState([]);
   const [savedGuests, setSavedGuests] = useState([]);
-  const [tags, setTags] = useState(null);
+  const [tags, setTags] = useState("");
   const [isInvited, setIsInvited] = useState(false);
   const [gaveMoney, setGaveMoney] = useState("");
 
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, reset, formState } = useForm({
     defaultValues: {},
   });
   const { errors } = formState;
@@ -76,6 +78,15 @@ function AddGuestForm({ onCloseModal }) {
     }
   }
 
+  function handleClearForm() {
+    reset();
+    setGaveMoney("");
+  }
+
+  function handleChangeTag(e) {
+    setTags(e.target.value);
+  }
+
   return (
     <>
       <Form
@@ -84,30 +95,47 @@ function AddGuestForm({ onCloseModal }) {
       >
         <FormRow
           label={t("guestInviteMoreFormName")}
+          isRequired={true}
           error={errors?.name?.message}
         >
-          <Input
-            type="text"
-            id="name"
-            disabled={isCreating}
-            {...register("name", {
-              required: `${t("requireField")}`,
-            })}
-          />
+          <>
+            <Input
+              type="text"
+              id="name"
+              disabled={isCreating}
+              {...register("name", {
+                required: `${t("requireField")}`,
+              })}
+            />
+            <RequiredMessage>{t("requireField")}</RequiredMessage>
+          </>
+        </FormRow>
+        <FormRow label={t("guestInviteMoreFormTags")} isRequired={true}>
+          <>
+            <Select
+              options={[
+                { value: FRIEND_TAG, label: t("guestFilterFriend") },
+                { value: FAMILY_TAG, label: t("guestFilterFamily") },
+                { value: COLLEAGUES_TAG, label: t("guestFilterColleague") },
+                { value: RELATIVES_TAG, label: t("guestFilterRelatives") },
+                { value: OTHERS_TAG, label: t("guestFilterOthers") },
+              ]}
+              type="white"
+              id="tags"
+              value={tags}
+              onChange={handleChangeTag}
+            />
+            <RequiredMessage>{t("requireField")}</RequiredMessage>
+          </>
         </FormRow>
         <FormRow label={t("guestInviteMoreFormMyGaveMoney")}>
-          {/* <Input
-            type="number"
-            id="gaveMoney"
-            disabled={isCreating}
-            {...register("gaveMoney")}
-          /> */}
           <SelectInput
             defaultValue={gaveMoney}
             setGaveMoney={setGaveMoney}
             type={"GAVE"}
           />
         </FormRow>
+
         <FormRow label={t("guestInviteMoreFormNotes")}>
           <Input
             type="text"
@@ -116,6 +144,7 @@ function AddGuestForm({ onCloseModal }) {
             {...register("notes")}
           />
         </FormRow>
+
         <FormRow label={t("guestInviteMoreFormPhone")}>
           <Input
             type="text"
@@ -125,19 +154,7 @@ function AddGuestForm({ onCloseModal }) {
           />
         </FormRow>
 
-        <FormRowCheckBox label={t("isInvited")}>
-          <Checkbox
-            type="text"
-            id="tags"
-            checked={isInvited === true ? true : false}
-            onChange={(e) => {
-              if (e.target.checked === true) setIsInvited(true);
-              else setIsInvited(false);
-            }}
-          />
-        </FormRowCheckBox>
-
-        <FormRowCheckBox label={t("guestInviteMoreFormTags")}>
+        {/* <FormRowCheckBox label={t("guestInviteMoreFormTags")} isRequired={true}>
           <>
             <Checkbox
               type="text"
@@ -190,13 +207,26 @@ function AddGuestForm({ onCloseModal }) {
               {t("guestFilterOthers")}
             </Checkbox>
           </>
+        </FormRowCheckBox> */}
+
+        <FormRowCheckBox label={t("isInvited")}>
+          <Checkbox
+            type="text"
+            id="invited"
+            checked={isInvited === true ? true : false}
+            onChange={(e) => {
+              if (e.target.checked === true) setIsInvited(true);
+              else setIsInvited(false);
+            }}
+          />
         </FormRowCheckBox>
 
+        {/* Button clear form and invite */}
         <FormRow>
           <Button
             variation="secondary"
             type="reset"
-            onClick={() => onCloseModal?.()}
+            onClick={() => handleClearForm()}
           >
             {t("guestInviteMoreFormClearBtn")}
           </Button>

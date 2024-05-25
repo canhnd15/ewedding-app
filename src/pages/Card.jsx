@@ -12,10 +12,14 @@ function Card() {
 
   return (
     <Row>
-      <Heading>MẪU THIỆP MỜI</Heading>
-      <CardTemplate cards={cards} />
-      <Heading>NỘI DUNG THIỆP MỜI</Heading>
-      <CardContent />
+      <Row>
+        <Heading>CHỌN MẪU THIỆP</Heading>
+        <CardTemplate cards={cards} />
+      </Row>
+      <Row>
+        <Heading>NỘI DUNG THIỆP</Heading>
+        <CardContent />
+      </Row>
     </Row>
   );
 }

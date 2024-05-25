@@ -3,7 +3,7 @@ import { getGuests } from "../../services/apiGuests";
 import { ALL_OPTION, INVITED, RECEIVED } from "../../utils/constants";
 import { useQuery } from "@tanstack/react-query";
 
-export function useGuests(userId) {
+export function useGuests(userId, isGetAll = false) {
   const [searchParams] = useSearchParams();
 
   //FILTER BY TAG
@@ -35,7 +35,12 @@ export function useGuests(userId) {
 
   const searchQuery = searchParams.get("search");
 
-  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
+  const page =
+    isGetAll === true
+      ? null
+      : !searchParams.get("page")
+      ? 1
+      : Number(searchParams.get("page"));
 
   const {
     isLoading,

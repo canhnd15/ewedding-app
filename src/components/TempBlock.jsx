@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { FaCrown } from "react-icons/fa";
 import RowOfBlocks from "./RowOfBlocks";
 import Modal from "./Modal";
-import AddGuestForm from "../features/guests/AddGuestForm";
 import CardPreview from "../features/card/CardPreview";
 
 const StyledTempBlock = styled.div`
@@ -68,6 +67,7 @@ const PreviewButton = styled.button`
 `;
 
 function TempBlock({ card }) {
+  console.log(card);
   return (
     <StyledTempBlock imageURL={card.image_url}>
       {card.is_premium && (
@@ -77,10 +77,10 @@ function TempBlock({ card }) {
       )}
       <RowOfBlocks type="horizontal">
         <Modal>
-          <Modal.Open opens={"guest-form"}>
+          <Modal.Open opens={"card-preview"}>
             <PreviewButton> Xem trước </PreviewButton>
           </Modal.Open>
-          <Modal.Window name={"guest-form"}>
+          <Modal.Window name={"card-preview"}>
             <CardPreview card={card} />
           </Modal.Window>
         </Modal>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 const StyledFormRow = styled.div`
   display: grid;
   align-items: center;
-  grid-template-columns: 1.2fr 1.2fr 1.2fr 1.5fr 1.2fr 1.2fr;
+  grid-template-columns: 1.85fr 1.2fr 1.2fr 1.5fr 1.2fr 1.2fr;
   gap: 2.4rem;
 
   padding: 1.2rem 0;
@@ -31,15 +31,23 @@ const Label = styled.label`
   font-weight: 500;
 `;
 
+const RequiredStar = styled.span`
+  color: red;
+`;
+
 const Error = styled.span`
   font-size: 1.4rem;
   color: var(--color-red-700);
 `;
 
-function FormRowCheckBox({ label, error, children }) {
+function FormRowCheckBox({ label, error, isRequired, children }) {
   return (
     <StyledFormRow>
-      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+      {label && (
+        <Label htmlFor={children.props.id}>
+          {label} {isRequired && <RequiredStar>*</RequiredStar>}
+        </Label>
+      )}
       {children}
       {error && <Error>{error}</Error>}
     </StyledFormRow>
